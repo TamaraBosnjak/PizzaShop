@@ -1,4 +1,6 @@
-﻿namespace PizzaShop.Models
+﻿using System.Collections.Generic;
+
+namespace PizzaShop.Models
 {
     public interface IPieRepository
     {

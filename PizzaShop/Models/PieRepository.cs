@@ -1,10 +1,12 @@
-﻿namespace PizzaShop.Models
+﻿using System.Collections.Generic;
+
+namespace PizzaShop.Models
 {
     public class PieRepository : IPieRepository
     {
         public List<Pie>AllPies { 
             get { return _pies; }
-            set { _pies = value; }
+            set {  _pies = value; }
         }
         public Pie GetPieById(int pieId)
         { 
