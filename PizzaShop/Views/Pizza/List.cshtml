@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Pie>
+<div>
+    @foreach (var p in Model)
+    {
+        <h2>@p.Name</h2>
+        <br />
+        <h4>@p.Description</h4>
+    }
+
+</div>

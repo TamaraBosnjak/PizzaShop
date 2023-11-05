@@ -1,0 +1,18 @@
+﻿<div>
+    
+    @{
+        if (ViewBag.Uslov == false)
+        {
+            if(ViewBag.Uslov2==true)
+            {
+                <p style="color:red;"> @ViewBag.Message</p>
+            }
+            else
+            {
+                <p style="color:green;">@ViewBag.Message2</p>
+            }
+        }
+     }
+</div>
+
+
