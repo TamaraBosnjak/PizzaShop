@@ -8,8 +8,9 @@
         public double Price { get; set; }
         public bool IsPieOfTheWeek { get; set; }
         public bool InStock { get; set; }
+        public Category Category { get; set; }
 
-        public Pie(int pieId, string name, string description, double price, bool isPieOfTheWeek, bool inStock)
+        public Pie(int pieId, string name, string description, double price, bool isPieOfTheWeek, bool inStock, Category category)
         {
             PieId = pieId;
             Name = name;
@@ -17,6 +18,8 @@
             Price = price;
             IsPieOfTheWeek = isPieOfTheWeek;
             InStock = inStock;
+            Category = category;
+
         }
     }
 }

@@ -1,10 +1,37 @@
 ﻿@model IEnumerable<Pie>
+<head>
+    <style>
+        table{
+            width:500px;
+            border-collapse:collapse;
+        }
+        table, th, td{
+            border: 1px solid black;
+        }
+        th, td{
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
 <div>
+    <table>
+        <tr>
+            <th>Naziv proizvoda</th>
+            <th>Opis</th>
+            <th>Cena</th>
+        </tr>
+    </table>
     @foreach (var p in Model)
     {
-        <h2>@p.Name</h2>
-        <br />
-        <h4>@p.Description</h4>
+        <table>
+            <tr>
+                <td>@p.Name</td>
+                <td>@p.Description</td>
+                <td>@p.Price</td>
+            </tr>
+        </table>
     }
-
 </div>
+</body>

@@ -22,10 +22,12 @@ namespace PizzaShop.Models
 
         public CategoryRepository()
         {
-            Category c1 = new Category(1, "Kategorija 1", "Opis za kategoriju 1");
-            Category c2 = new Category(2, "Kategorija 2", "Opis za kategoriju 2");
-            _categories.Add(c1);
-            _categories.Add(c2);
+            //Category c1 = new Category(1, "Pice sa mesom", "Opis za kategoriju 1");
+            //Category c2 = new Category(2, "Veganske pice", "Opis za kategoriju 2");
+            //Category c3 = new Category(3, "Pice bez glutena", "Opis za kategoriju 3");
+            //_categories.Add(c1);
+            //_categories.Add(c2);
+            //_categories.Add(c3);
         }
 
     }
