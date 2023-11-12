@@ -1,37 +1,97 @@
 ﻿@model IEnumerable<Pie>
+
 <head>
-    <style>
-        table{
-            width:500px;
-            border-collapse:collapse;
-        }
-        table, th, td{
-            border: 1px solid black;
-        }
-        th, td{
-            padding: 10px;
-            text-align: left;
-        }
-    </style>
+   
 </head>
 <body>
 <div>
-    <table>
-        <tr>
-            <th>Naziv proizvoda</th>
-            <th>Opis</th>
-            <th>Cena</th>
-        </tr>
-    </table>
-    @foreach (var p in Model)
-    {
-        <table>
-            <tr>
-                <td>@p.Name</td>
-                <td>@p.Description</td>
-                <td>@p.Price</td>
-            </tr>
-        </table>
-    }
-</div>
+        @{
+            if (ViewBag.Uslov == 1)
+            {
+                foreach (var p in Model)
+                {
+                        <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-3 g-4 pt-5">
+                            <div class="col-12 col-mb-6 col-lg-4">
+                                
+                                <div class="card rounded mb-4 shadow-sm">
+                                    <img class="card-img-top" src="images/products/veganko.jpg">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@p.Name</h5>
+                                        <p class="card-text">@p.Description</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="kulenica.html" class="btn btn-primary">Pogledajte detalje</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                }
+            }
+            else if (ViewBag.Uslov == 2)
+            {
+                foreach (var p in Model)
+                {
+                        <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-3 g-4">
+                            <div class="col-12 col-mb-6 col-lg-4">
+
+                                <div class="card rounded mb-4 shadow-sm">
+                                    <img class="card-img-top" src="images/products/veganko.jpg">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@p.Name</h5>
+                                        <p class="card-text">@p.Description</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="kulenica.html" class="btn btn-primary">Pogledajte detalje</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                }
+            }
+            else if (ViewBag.Uslov == 3)
+            {
+                foreach (var p in Model)
+                {
+                        <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-3 g-4">
+                            <div class="col-12 col-mb-6 col-lg-4">
+
+                                <div class="card rounded mb-4 shadow-sm">
+                                    <img class="card-img-top" src="images/products/veganko.jpg">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@p.Name</h5>
+                                        <p class="card-text">@p.Description</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="kulenica.html" class="btn btn-primary">Pogledajte detalje</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                }
+            }
+            else
+            {
+                foreach (var p in Model)
+                {
+                    <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-3 g-4">
+                        <div class="col-12 col-mb-6 col-lg-4">
+                            <div class="card rounded mb-4 shadow-sm">
+                                <img class="card-img-top" src="images/products/veganko.jpg">
+                                <div class="card-body">
+                                    <h5 class="card-title">@p.Name</h5>
+                                    <p class="card-text">@p.Description</p>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="kulenica.html" class="btn btn-primary">Pogledajte detalje</a>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                }
+            }
+        }
+    </div>
 </body>

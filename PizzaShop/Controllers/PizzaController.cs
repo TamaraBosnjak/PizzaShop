@@ -22,10 +22,14 @@ namespace PizzaShop.Controllers
           
             return View();
         }
-        public ViewResult List()
+        public ViewResult List(int id)
         {
+            ViewBag.Uslov = id;
             return View(_repository.AllPies);
+            //return View(_repository.AllPies.Where(c=>c.Category.CategoryId==id));
+            //return View(_repository.AllPies.FirstOrDefault(c => c.Category.CategoryId == id));
         }
+       
         public ViewResult ListAgain()
         {
             return View(_categoryRepository.Categories);
