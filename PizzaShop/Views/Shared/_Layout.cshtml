@@ -12,8 +12,8 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <img src="images/pizzaLogo.png" width="30" height="30" class="d-inline-block align-top"
+                <a class="navbar-brand" href="/home/index">
+                    <img src="~/images/pizzaLogo.png" width="30" height="30" class="d-inline-block align-top"
                          alt="IFS Picerija Logo">
                     IFS picerija
                 </a>
@@ -26,26 +26,26 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="nav navbar-nav mr-auto">
                         <li class="nav-item ">
-                            <a class="nav-link active" href="index.html">Početna</a>
+                            <a class="nav-link active" href="/home/index">Početna</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="nav-dropdown" data-bs-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle" href="~/pizza/index.html" id="nav-dropdown" data-bs-toggle="dropdown"
                                aria-expanded="false">
                                 Pice
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="nav-dropdown">
-                                <li><a class="dropdown-item" href="samesom.html">Pice sa mesom</a></li>
-                                <li><a class="dropdown-item" href="veganske.html">Veganske pice</a></li>
-                                <li><a class="dropdown-item" href="bezglutena.html">Pice bez glutena</a></li>
+                                <li><a class="dropdown-item" href="~/pizza/list?categoryID=1">Pice sa mesom</a></li>
+                                <li><a class="dropdown-item" href="~/pizza/list?categoryID=2">Veganske pice</a></li>
+                                <li><a class="dropdown-item" href="~/pizza/list?categoryID=3">Pice bez glutena</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="svepice.html">Sve pice</a></li>
+                                <li><a class="dropdown-item" href="~/pizza/list">Sve pice</a></li>
                             </ul>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link " href="pretplata.html">
+                            <a class="nav-link" asp-controller="home" asp-action="Pretplata">
                                 Pretplata
                             </a>
                         </li>
@@ -58,6 +58,7 @@
         </nav>
 
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

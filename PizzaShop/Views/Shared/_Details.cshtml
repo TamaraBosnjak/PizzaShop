@@ -1,0 +1,22 @@
+﻿@using PizzaShop.ViewModels;
+@model DetailsViewModel
+
+<div>
+    <img style="max-width:100%" src="@Model.ImageUrl" />
+</div>
+<div>
+    <h3>O ovoj pici</h3>
+    <div class="text-center my-3">
+        Uvećajte unos tradicije
+    </div>
+    <p>@Model.LongDescription</p>
+    <div class="d-flex flex-row justify-content-between mt-4 align-baseline">
+        <div class="col-md-4">
+            <strong>@Model.Price<span> RSD</span></strong>
+        </div>
+        <div class="col-md-8">
+            <a class="btn btn-success float-end" type="button" href="#">Dodaj u korpu</a>
+        </div>
+    </div>
+</div>
+ 

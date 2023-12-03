@@ -1,49 +1,8 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using PizzaShop.ViewModels;
 
-<main class="container" role="main">
+@model HomeViewModel
 
-    <div id="welcomeCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#welcomeCarousel" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Welcome 1"></button>
-            <button type="button" data-bs-target="#welcomeCarousel" data-bs-slide-to="1"
-                    aria-label="Welcome 2"></button>
-            <button type="button" data-bs-target="#welcomeCarousel" data-bs-slide-to="2"
-                    aria-label="Welcome 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item welcome-carousel-image1 active">
-                <div class="carousel-caption">
-                    <h1>Dobrodošli u IFS piceriju</h1>
-                    <p>Ovde "žive" najbolje pice na internetu.</p>
-                </div>
-            </div>
-            <div class="carousel-item welcome-carousel-image2">
-                <div class="carousel-caption text-start">
-                    <h1>Otkrijte našu pica pretplatu</h1>
-                    <p>Naše ukusne pice stižu na vaša vrata. Svakodnevno.</p>
-                    <p><a class="btn btn-lg btn-primary" href="pretplata.html" role="button">Prijavite se još danas</a></p>
-                </div>
-            </div>
-            <div class="carousel-item welcome-carousel-image3">
-                <div class="carousel-caption text-end">
-                    <h1>Istražite sve ukuse.</h1>
-                    <p>Pica je pogodna za svaku priliku. Uživajte u našim veganskim opcijama.</p>
-                    <p><a class="btn btn-lg btn-primary" href="veganske.html" role="button">Veganske pice</a></p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#welcomeCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Prethodna</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#welcomeCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Sledeća</span>
-        </button>
-    </div>
+<partial name="_Carousel" />
 
     <nav aria-label="breadcrumb" class="my-3 ms-3">
         <ol class="breadcrumb">
@@ -51,100 +10,16 @@
         </ol>
     </nav>
 
-    <div class="container history">
-        <div class="row">
-            <div class="col-lg-8">
-                <h2 class="pb-4 mb-4 fst-italic">
-                    Naša priča
-                </h2>
-                <p>
-                    Mnogo godina Andreja je kod kuće pravio naujukusnije pice. 2020. godine u malom gradu u Srbiji
-                    otvorio je svoju prvu radnju, <b>IFS piceriju</b> koja je postala pravi hit među ljubiteljima pice širom zemlje.
-                    Ljudi su se zaljubili u njene izvanredne ukuse, domaću proizvodnju, autentičnost
-                    i tradiciju koju je picerija negovala... <i>Nije mnogo prošlo i picerija je postigla veliki uspeh.</i>
-                    <br>Već 2022. godine, ova picerija je dostizala neverovatne brojke - prodavali su 100 pica svakog dana.
-                    Velika potražnja za njihovim picama navela je vlasnika da shvati da ima nešto posebno
-                    i da treba pružiti svoje ukusne specijalitete i širem auditorijumu.
-                    Zato je u narednom periodu odlučio da otvori svoju web stranicu kako bi svima omogućio da osete ukuse iz Srbije,
-                    bez obzira na to gde se nalaze. Na njegovoj web stranici, posetioci mogu pregledati širok izbor pica i odabrati svoju omiljenu kombinaciju ukusa.
+<partial name="_History" />
 
-                    Pored klasičnih italijanskih pizza, ova picerija je postala poznata i po svojim jedinstvenim srpskim specijalitetima.
-                    Nudili su pice sa domaćim kulenom, ajvarom ili kajmakom, koje su osvojile srca mnogih gurmana.
-
-                    Zahvaljujući visokokvalitetnim sastojcima i pažljivo pripremljenim picama, ova picerija je stekla lojalnu bazu mušterija ne samo u Srbiji,
-                    već i u drugim zemljama širom sveta. Njihov uspeh je dokazao da se tradicionalni recepti i kvalitet mogu spojiti sa modernim trendovima
-                    i pružiti zadovoljstvo nepcima ljudi širom sveta.
-                </p>
-                <p>
-                    Ova picerija je postala sinonim za autentičnu srpsku i italijansku hranu, te se njihov brend širi i danas.
-                    Njihova priča je primer kako jedna mala picerija može postati veliki hit zahvaljujući strasti, kvalitetu i predanosti svojim klijentima.
-                </p>
-            </div>
-
-            <aside class="col-lg-4">
-                <div class="p-4 mb-3 mt-2 bg-light rounded">
-                    <h4>Od Andreje za vas</h4>
-                    <p class="mb-0 fst-italic">
-                        Ovi recepti za testo su u mojoj porodici već generacijama. A ostalo je spremano srcem samo za vas.
-                        Nadam se da uživate u našim picama! -
-                        Andreja
-                    </p>
-                </div>
-
-                <div class="p-4 mb-3 bg-secondary rounded">
-                    <h4 class="text-white">Kontaktirajte nas</h4>
-                    <p class="mb-0 text-white rfs-text">Ukoliko imate neka pitanj pišite nam na info@ifspicerija.com</p>
-                </div>
-
-            </aside>
-        </div>
+    <div class="row pizzas-of-the-week">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach(var pizza in Model.PizzasOfTheWeek)
+        {
+            <partial name="_PizzaCard" model="pizza" /> 
+        }
+        </div> 
     </div>
-
-    <div class="container history">
-        <h2 class="pb-4 mb-2 mt-5">Pice nedelje</h2>
-        <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-3 g-4">
-            <div class="col-12 col-mb-6 col-lg-4">
-                <div class="card rounded mb-4 shadow-sm">
-                    <img class="card-img-top" src="images/products/srpska.jpg">
-                    <div class="card-body">
-                        <h5 class="card-title">Srpska</h5>
-                        <p class="card-text">Ukus tradicije na nov način!</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="kulenica.html" class="btn btn-primary">Pogledajte detalje</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-mb-6 col-lg-4">
-                <div class="card rounded mb-4 shadow-sm">
-                    <img class="card-img-top" src="images/products/porodicniMiks.jpg">
-                    <div class="card-body">
-                        <h5 class="card-title">Porodični Miks</h5>
-                        <p class="card-text">Za svakog po nešto, dovoljno za sve!</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="kulenica.html" class="btn btn-primary">Pogledajte detalje</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-mb-6 col-lg-4">
-                <div class="card rounded mb-4 shadow-sm">
-                    <img class="card-img-top" src="images/products/veganko.jpg">
-                    <div class="card-body">
-                        <h5 class="card-title">Veganko</h5>
-                        <p class="card-text">I ukus i zdravlje!</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="kulenica.html" class="btn btn-primary">Pogledajte detalje</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

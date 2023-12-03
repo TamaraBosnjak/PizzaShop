@@ -5,6 +5,6 @@ namespace PizzaShop.Models
     public interface ICategoryRepository
     {
         IEnumerable<Category> Categories { get; }
-        Category GetCategoryByID(int id);
+        Category GetCategoryByID(int ID);
     }
 }

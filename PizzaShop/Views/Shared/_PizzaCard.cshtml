@@ -1,0 +1,28 @@
+﻿@model Pizza
+
+<div class="col">
+    <div class="card pizza-card position-relative">
+        <img src="@Model.ImageThumbnailUrl" class="card-img-top" alt="@Model.Name" />
+        <div class="card-body pizza-button">
+            <h4 class="d-grid">
+            </h4>
+            <div class="d-flex justify-content-between mt-2">
+                <h3 class="text-start">
+                    @Model.Name
+                </h3>
+            </div>
+            <div>
+                <p class="card-text">@Model.ShortDescription</p>
+            </div>
+            <div class="row card-footer" style="width:fit-content">
+                <a asp-controller="Pizza"
+                   asp-action="Details"
+                   asp-route-id="@Model.ID"
+                   class="btn btn-primary">Pogledaj detalje</a>
+                <div class="row text-nowrap">
+                    <h5>@Model.Price RSD</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

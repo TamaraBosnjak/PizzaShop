@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PizzaShop.Models;
+using PizzaShop.ViewModels;
 
 namespace PizzaShop.Controllers
 {
     public class PizzaController : Controller
     {
-        private IPieRepository _repository;
-        private ICategoryRepository _categoryRepository;
-        public PizzaController(IPieRepository repository, ICategoryRepository categoryRepository)
+        private readonly IPizzaRepository _pizzaRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        public PizzaController(IPizzaRepository pizzaRepository, ICategoryRepository categoryRepository)
         {
-            _repository = repository;
+            _pizzaRepository = pizzaRepository;
             _categoryRepository = categoryRepository;
         }
 
@@ -19,20 +20,33 @@ namespace PizzaShop.Controllers
             ViewBag.Uslov2 = uslov2;
             ViewBag.Message = "Ovo je server-side poruka.";
             ViewBag.Message2 = "Ovo je druga poruka.";
-          
+
             return View();
         }
-        public ViewResult List(int id)
+        //[Route("[controller]/Allpizzas/{categoryID?}")]
+        public ViewResult List(int? categoryID)
         {
-            ViewBag.Uslov = id;
-            return View(_repository.AllPies);
-            //return View(_repository.AllPies.Where(c=>c.Category.CategoryId==id));
-            //return View(_repository.AllPies.FirstOrDefault(c => c.Category.CategoryId == id));
+            IEnumerable<Pizza> pizzas;
+            string? category = "Sve pice";
+            if (categoryID > 0)
+            { 
+                pizzas = _pizzaRepository.Pizzas.Where(p => p.Category.ID == categoryID).OrderBy(p => p.ID);
+                category = _categoryRepository.Categories.Where(c => c.ID == categoryID).Select(c => c.Name).FirstOrDefault();
+            }
+            else
+            {
+                pizzas = _pizzaRepository.Pizzas.OrderBy(p => p.ID);
+            }
+
+            return View(new PizzaListViewModel(pizzas, category));
+
         }
-       
-        public ViewResult ListAgain()
+        public ViewResult Details(int id)
         {
-            return View(_categoryRepository.Categories);
+            Pizza p = _pizzaRepository.GetPizzaByID(id);
+            return View(new DetailsViewModel(id, p.ImageUrl, p.LongDescription, p.Price));
         }
+
+
     }
 }
