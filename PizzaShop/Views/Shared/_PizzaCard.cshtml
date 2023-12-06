@@ -1,7 +1,7 @@
 ﻿@model Pizza
 
 <div class="col">
-    <div class="card pizza-card position-relative">
+    <div class="card pizza-card">
         <img src="@Model.ImageThumbnailUrl" class="card-img-top" alt="@Model.Name" />
         <div class="card-body pizza-button">
             <h4 class="d-grid">
@@ -22,9 +22,9 @@
                 <a asp-controller="Pizza"
                    asp-action="Details"
                    asp-route-id="@Model.ID" class="btn btn-primary">Pogledaj detalje</a>
-                <div class="row text-nowrap">
+               @*  <div class="row text-nowrap">
                     <h5>@Model.Price RSD</h5>
-                </div>
+                </div> *@
             </div>
         </div>
     </div>

@@ -1,10 +1,15 @@
 ﻿@using PizzaShop.ViewModels
+@using PizzaShop.Models
 @model ShoppingCartViewModel
 
 <h3 class="my-5">
     Shopping cart
 </h3>
-
+<div>
+    <a class="btn btn-danger"
+       asp-controller="ShoppingCart"
+       asp-action="RemoveAllFromCart"> - Remove all</a>
+</div>
 
 <div class="row gx-3">
     <div class="col-8">
@@ -21,6 +26,10 @@
                             <div class="d-flex justify-content-between">
                                 <h6>@line.Pizza.ShortDescription</h6>
                                 <h2>@line.Pizza.Price.ToString("c")</h2>
+                                <a class="btn btn-danger"
+                                   asp-controller="ShoppingCart"
+                                   asp-action="RemoveFromShoppingCart"
+                                   asp-route-pizzaid="@line.Pizza.ID"> - Remove from cart</a>
                             </div>
                         </div>
                     </div>
@@ -35,8 +44,6 @@
                 <h4 class="col text-end">@Model.ShoppingCartTotal.ToString("c")</h4>
             </div>
             <hr />
-            <div class="text-center d-grid">
-            </div>
         </div>
     </div>
 </div>

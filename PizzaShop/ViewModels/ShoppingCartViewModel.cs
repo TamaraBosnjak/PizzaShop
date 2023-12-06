@@ -6,6 +6,7 @@ namespace PizzaShop.ViewModels
     {
         public IShoppingCart ShoppingCart { get; }
         public decimal ShoppingCartTotal { get; }
+        
 
         public ShoppingCartViewModel(IShoppingCart shoppingCart, decimal shoppingCartTotal)
         {

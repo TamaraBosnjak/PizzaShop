@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace PizzaShop.Models
 {
@@ -54,6 +55,10 @@ namespace PizzaShop.Models
                     shoppingCartItem.Amount--;
                     localAmount = shoppingCartItem.Amount;
                 }
+                else
+                {
+                    _context.ShoppingCartItems.Remove(shoppingCartItem);
+                }
             }
             else 
             {
@@ -72,6 +77,14 @@ namespace PizzaShop.Models
         {
             var total = _context.ShoppingCartItems.Where(c => c.ShoppingCartID == ShoppingCartID).Select(c => c.Pizza.Price * c.Amount).Sum();
             return total;
+        }
+        public void ClearCart()
+        {
+            var cartItems = _context.ShoppingCartItems.Where(c => c.ShoppingCartID == ShoppingCartID);
+
+            _context.ShoppingCartItems.RemoveRange(cartItems);
+
+            _context.SaveChanges();
         }
     }
 }

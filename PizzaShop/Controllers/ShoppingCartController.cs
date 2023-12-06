@@ -39,5 +39,10 @@ namespace PizzaShop.Controllers
             }
             return RedirectToAction("Index");
         }
+        public RedirectToActionResult RemoveAllFromCart() 
+        {
+            _shoppingCart.ClearCart();
+            return RedirectToAction("Index");
+        }
     }
 }
