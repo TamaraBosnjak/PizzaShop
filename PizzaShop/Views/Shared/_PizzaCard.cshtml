@@ -5,6 +5,10 @@
         <img src="@Model.ImageThumbnailUrl" class="card-img-top" alt="@Model.Name" />
         <div class="card-body pizza-button">
             <h4 class="d-grid">
+                <a class="btn btn-secondary"
+                   asp-controller="ShoppingCart"
+                   asp-action="AddToShoppingCart"
+                   asp-route-pizzaId="@Model.ID"> + Add to cart</a>
             </h4>
             <div class="d-flex justify-content-between mt-2">
                 <h3 class="text-start">
@@ -17,8 +21,7 @@
             <div class="row card-footer" style="width:fit-content">
                 <a asp-controller="Pizza"
                    asp-action="Details"
-                   asp-route-id="@Model.ID"
-                   class="btn btn-primary">Pogledaj detalje</a>
+                   asp-route-id="@Model.ID" class="btn btn-primary">Pogledaj detalje</a>
                 <div class="row text-nowrap">
                     <h5>@Model.Price RSD</h5>
                 </div>

@@ -15,7 +15,6 @@ namespace PizzaShop.ViewModels
             ImageUrl = imageUrl;
             LongDescription = longDescription;
             Price = price;
-           
         }
     }
 }

@@ -9,13 +9,13 @@ namespace PizzaShop.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPizzaRepository _pizzaRepository;
-        private readonly ShoppingCartItemRepository _shoppingCartItemRepository;
+        private readonly IShoppingCart _shoppingCart;
 
-        public HomeController(ILogger<HomeController> logger, IPizzaRepository pizzaRepository, ShoppingCartItemRepository shoppingCartItemRepository)
+        public HomeController(ILogger<HomeController> logger, IPizzaRepository pizzaRepository, IShoppingCart shoppingCart)
         {
             _logger = logger;
             _pizzaRepository = pizzaRepository;
-            _shoppingCartItemRepository = shoppingCartItemRepository;
+            _shoppingCart = shoppingCart;
 
         }
 
@@ -29,11 +29,11 @@ namespace PizzaShop.Controllers
             return View();
         }
 
-        public ViewResult ShoppingCart(string shoppingCartID)
-        {
-            var shoppingItem = _shoppingCartItemRepository.GetShoppingCartItemByID("");
-            return View(shoppingItem);  
-        }
+        //public ViewResult ShoppingCart(string shoppingCartID)
+        //{
+        //    var shoppingItem = _shoppingCartItemRepository.GetShoppingCartItemByID("");
+        //    return View(shoppingItem);  
+        //}
 
         public IActionResult Privacy()
         {
