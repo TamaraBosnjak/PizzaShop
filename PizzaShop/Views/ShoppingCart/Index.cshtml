@@ -5,10 +5,8 @@
 <h3 class="my-5">
     Shopping cart
 </h3>
-<div>
-    <a class="btn btn-danger"
-       asp-controller="ShoppingCart"
-       asp-action="RemoveAllFromCart"> - Remove all</a>
+<div class="row d-flex col-md-2 col-sm-2 m-0"> 
+    <a class="btn btn-danger" asp-controller="ShoppingCart" asp-action="RemoveAllFromCart">Obriši sve</a>
 </div>
 
 <div class="row gx-3">
@@ -26,11 +24,14 @@
                             <div class="d-flex justify-content-between">
                                 <h6>@line.Pizza.ShortDescription</h6>
                                 <h2>@line.Pizza.Price.ToString("c")</h2>
-                                <a class="btn btn-danger"
-                                   asp-controller="ShoppingCart"
-                                   asp-action="RemoveFromShoppingCart"
-                                   asp-route-pizzaid="@line.Pizza.ID"> - Remove from cart</a>
                             </div>
+                        <div class="d-flex justify-content-between col-md-4 col-4"> 
+                            <div class="input-group mb-3">
+                            <a class="input-group-text text-decoration-none" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pizzaid="@line.Pizza.ID">+</a>
+                            <input type = "text" class="form-control text-center" value="@line.Amount">
+                            <a class="input-group-text text-decoration-none" asp-controller="ShoppingCart" asp-action="RemoveFromShoppingCart" asp-route-pizzaid="@line.Pizza.ID">-</a>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>

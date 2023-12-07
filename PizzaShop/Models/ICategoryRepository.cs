@@ -4,7 +4,7 @@ namespace PizzaShop.Models
 {
     public interface ICategoryRepository
     {
-        IEnumerable<Category> Categories { get; }
-        Category GetCategoryByID(int ID);
+        IEnumerable<Category> GetAllCategories();
+        Category GetCategoryByID(int? categoryId);
     }
 }

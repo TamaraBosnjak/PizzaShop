@@ -18,7 +18,7 @@ namespace PizzaShop.Controllers
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
             
-            var shoppingCartViewModel = new ShoppingCartViewModel(_shoppingCart, _shoppingCart.GetShoppingCartTotal());
+            var shoppingCartViewModel = new ShoppingCartViewModel(_shoppingCart, _shoppingCart.GetShoppingCartTotal(), _shoppingCart.GetShoppingCartTotalQuantity());
             return View(shoppingCartViewModel);
         }
         public RedirectToActionResult AddToShoppingCart(int pizzaId)

@@ -31,7 +31,7 @@ namespace PizzaShop.Controllers
             if (categoryID > 0)
             { 
                 pizzas = _pizzaRepository.Pizzas.Where(p => p.Category.ID == categoryID).OrderBy(p => p.ID);
-                category = _categoryRepository.Categories.Where(c => c.ID == categoryID).Select(c => c.Name).FirstOrDefault();
+                category = _categoryRepository.GetCategoryByID(categoryID).Name;
             }
             else
             {
