@@ -13,33 +13,33 @@ namespace PizzaShop.Controllers
             _pizzaRepository = pizzaRepository;
             _shoppingCart = shoppingCart;
         }
-        public IActionResult Index() 
+        public IActionResult Index()
         {
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
-            
+
             var shoppingCartViewModel = new ShoppingCartViewModel(_shoppingCart, _shoppingCart.GetShoppingCartTotal(), _shoppingCart.GetShoppingCartTotalQuantity());
             return View(shoppingCartViewModel);
         }
         public RedirectToActionResult AddToShoppingCart(int pizzaId)
         {
             var selectedPizza = _pizzaRepository.GetPizzaByID(pizzaId);
-            if (selectedPizza != null) 
+            if (selectedPizza != null)
             {
                 _shoppingCart.AddToCart(selectedPizza);
             }
             return RedirectToAction("Index");
         }
-        public RedirectToActionResult RemoveFromShoppingCart(int pizzaId) 
+        public RedirectToActionResult RemoveFromShoppingCart(int pizzaId)
         {
             var selectedPizza = _pizzaRepository.GetPizzaByID(pizzaId);
-            if (selectedPizza != null) 
+            if (selectedPizza != null)
             {
                 _shoppingCart.RemoveFromCart(selectedPizza);
             }
             return RedirectToAction("Index");
         }
-        public RedirectToActionResult RemoveAllFromCart() 
+        public RedirectToActionResult RemoveAllFromCart()
         {
             _shoppingCart.ClearCart();
             return RedirectToAction("Index");

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
- 
+﻿
 
 namespace PizzaShop.Models
 {
@@ -20,9 +18,9 @@ namespace PizzaShop.Models
         {
             return _appDBContext.Categories.FirstOrDefault(c => c.ID == categoryId)!;
         }
-       
 
-   
+
+
 
     }
 }

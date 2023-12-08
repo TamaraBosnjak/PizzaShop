@@ -25,7 +25,7 @@ namespace PizzaShop.Controllers
             return View(new HomeViewModel(pizzasOfTheWeek));
         }
         public ViewResult Pretplata()
-        { 
+        {
             return View();
         }
 

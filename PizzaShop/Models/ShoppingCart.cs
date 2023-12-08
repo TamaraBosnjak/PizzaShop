@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace PizzaShop.Models
 {
@@ -26,7 +25,7 @@ namespace PizzaShop.Models
         public void AddToCart(Pizza pizza)
         {
             var shoppingCartItem = _context.ShoppingCartItems.SingleOrDefault(s => s.Pizza.ID == pizza.ID && s.ShoppingCartID == ShoppingCartID);
-            if (shoppingCartItem == null) 
+            if (shoppingCartItem == null)
             {
                 shoppingCartItem = new ShoppingCartItem
                 {
@@ -36,7 +35,7 @@ namespace PizzaShop.Models
                 };
                 _context.ShoppingCartItems.Add(shoppingCartItem);
             }
-            else 
+            else
             {
                 shoppingCartItem.Amount++;
             }
@@ -45,10 +44,10 @@ namespace PizzaShop.Models
         public int RemoveFromCart(Pizza pizza)
         {
             var shoppingCartItem = _context.ShoppingCartItems.SingleOrDefault(s => s.Pizza.ID == pizza.ID && s.ShoppingCartID == ShoppingCartID);
-          
+
             var localAmount = 0;
 
-            if (shoppingCartItem != null) 
+            if (shoppingCartItem != null)
             {
                 if (shoppingCartItem.Amount > 1)
                 {
@@ -60,14 +59,14 @@ namespace PizzaShop.Models
                     _context.ShoppingCartItems.Remove(shoppingCartItem);
                 }
             }
-          
+
             _context.SaveChanges(true);
             return localAmount;
         }
 
-        public List<ShoppingCartItem> GetShoppingCartItems() 
+        public List<ShoppingCartItem> GetShoppingCartItems()
         {
-            return ShoppingCartItems ??= _context.ShoppingCartItems.Where(c => c.ShoppingCartID == ShoppingCartID).Include(s =>s.Pizza).ToList();
+            return ShoppingCartItems ??= _context.ShoppingCartItems.Where(c => c.ShoppingCartID == ShoppingCartID).Include(s => s.Pizza).ToList();
         }
         public decimal GetShoppingCartTotal()
         {

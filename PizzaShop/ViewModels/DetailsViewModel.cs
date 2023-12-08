@@ -1,6 +1,4 @@
-﻿using PizzaShop.Models;
-
-namespace PizzaShop.ViewModels
+﻿namespace PizzaShop.ViewModels
 {
     public class DetailsViewModel
     {
@@ -9,7 +7,7 @@ namespace PizzaShop.ViewModels
         public string LongDescription { get; set; }
         public decimal Price { get; set; }
 
-        public DetailsViewModel(int id, string imageUrl, string longDescription, decimal price) 
+        public DetailsViewModel(int id, string imageUrl, string longDescription, decimal price)
         {
             ID = id;
             ImageUrl = imageUrl;

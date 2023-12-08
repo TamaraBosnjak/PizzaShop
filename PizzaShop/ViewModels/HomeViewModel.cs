@@ -6,7 +6,7 @@ namespace PizzaShop.ViewModels
     {
         public IEnumerable<Pizza> PizzasOfTheWeek { get; set; }
 
-        public HomeViewModel(IEnumerable<Pizza> pizzasOfTheWeek) 
+        public HomeViewModel(IEnumerable<Pizza> pizzasOfTheWeek)
         {
             PizzasOfTheWeek = pizzasOfTheWeek;
         }

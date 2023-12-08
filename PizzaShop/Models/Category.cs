@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace PizzaShop.Models
+﻿namespace PizzaShop.Models
 {
     public class Category
     {
@@ -9,6 +7,6 @@ namespace PizzaShop.Models
         public string Description { get; set; }
         public IEnumerable<Pizza> Pizzas { get; set; }
 
-    
+
     }
 }

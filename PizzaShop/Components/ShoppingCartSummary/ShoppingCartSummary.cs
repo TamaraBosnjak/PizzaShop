@@ -16,7 +16,7 @@ namespace PizzaShop.Components.ShoppingCartSummary
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
 
-            var vm = new ShoppingCartViewModel(_shoppingCart, _shoppingCart.GetShoppingCartTotalQuantity(),_shoppingCart.GetShoppingCartTotal());
+            var vm = new ShoppingCartViewModel(_shoppingCart, _shoppingCart.GetShoppingCartTotalQuantity(), _shoppingCart.GetShoppingCartTotal());
             return View(vm);
         }
     }

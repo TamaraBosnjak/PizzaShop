@@ -29,7 +29,7 @@ namespace PizzaShop.Controllers
             IEnumerable<Pizza> pizzas;
             string? category = "Sve pice";
             if (categoryID > 0)
-            { 
+            {
                 pizzas = _pizzaRepository.Pizzas.Where(p => p.Category.ID == categoryID).OrderBy(p => p.ID);
                 category = _categoryRepository.GetCategoryByID(categoryID).Name;
             }

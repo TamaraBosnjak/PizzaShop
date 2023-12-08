@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace PizzaShop.Models
+﻿namespace PizzaShop.Models
 {
     public interface IPizzaRepository
     {
