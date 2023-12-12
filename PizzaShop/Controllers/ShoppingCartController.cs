@@ -8,6 +8,7 @@ namespace PizzaShop.Controllers
     {
         private readonly IPizzaRepository _pizzaRepository;
         private readonly IShoppingCart _shoppingCart;
+        
         public ShoppingCartController(IPizzaRepository pizzaRepository, IShoppingCart shoppingCart)
         {
             _pizzaRepository = pizzaRepository;
@@ -21,12 +22,12 @@ namespace PizzaShop.Controllers
             var shoppingCartViewModel = new ShoppingCartViewModel(_shoppingCart, _shoppingCart.GetShoppingCartTotal(), _shoppingCart.GetShoppingCartTotalQuantity());
             return View(shoppingCartViewModel);
         }
-        public RedirectToActionResult AddToShoppingCart(int pizzaId)
+        public RedirectToActionResult AddToShoppingCart(int pizzaId, int amount)
         {
             var selectedPizza = _pizzaRepository.GetPizzaByID(pizzaId);
             if (selectedPizza != null)
             {
-                _shoppingCart.AddToCart(selectedPizza);
+                _shoppingCart.AddToCart(selectedPizza, amount);
             }
             return RedirectToAction("Index");
         }

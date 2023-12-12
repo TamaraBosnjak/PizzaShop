@@ -6,6 +6,7 @@ namespace PizzaShop.Models
     {
         private readonly AppDBContext _context;
         public string? ShoppingCartID { get; set; }
+        public int Amount { get; set; }
 
         public List<ShoppingCartItem> ShoppingCartItems { get; set; } = default!;
 
@@ -22,7 +23,7 @@ namespace PizzaShop.Models
             session?.SetString("cartID", cartID);
             return new ShoppingCart(context) { ShoppingCartID = cartID };
         }
-        public void AddToCart(Pizza pizza)
+        public void AddToCart(Pizza pizza, int amount)
         {
             var shoppingCartItem = _context.ShoppingCartItems.SingleOrDefault(s => s.Pizza.ID == pizza.ID && s.ShoppingCartID == ShoppingCartID);
             if (shoppingCartItem == null)

@@ -28,21 +28,8 @@
                         <li class="nav-item ">
                             <a class="nav-link active" asp-controller="home" asp-action="index">Početna</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="~/pizza/index.html" id="nav-dropdown" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                Pice
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="nav-dropdown">
-                                <li><a class="dropdown-item" asp-controller="pizza" asp-action="list" asp-route-categoryID="1">Pice sa mesom</a></li>
-                                <li><a class="dropdown-item" asp-controller="pizza" asp-action="list" asp-route-categoryID="2">Veganske pice</a></li>
-                                <li><a class="dropdown-item" asp-controller="pizza" asp-action="list" asp-route-categoryID="3">Pice bez glutena</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" asp-controller="pizza" asp-action="list">Sve pice</a></li>
-                            </ul>
-                        </li>
+                    
+                        <vc:category-menu></vc:category-menu>
 
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="home" asp-action="Pretplata">

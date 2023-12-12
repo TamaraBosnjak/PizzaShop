@@ -5,11 +5,11 @@
 <h3 class="my-5">
     Shopping cart
 </h3>
-<div class="row d-flex col-md-2 col-sm-2 m-0"> 
-    <a class="btn btn-danger" asp-controller="ShoppingCart" asp-action="RemoveAllFromCart">Obriši sve</a>
-</div>
+<div class="row"> 
+    <div class="d-flex justify-content-end mb-3">
+        <a class="btn btn-danger" asp-controller="ShoppingCart" asp-action="RemoveAllFromCart">Obriši sve</a>
+    </div>
 
-<div class="row gx-3">
     <div class="col-8">
         @foreach (var line in Model.ShoppingCart.ShoppingCartItems)
         {
@@ -25,13 +25,7 @@
                                 <h6>@line.Pizza.ShortDescription</h6>
                                 <h2>@line.Pizza.Price.ToString("c")</h2>
                             </div>
-                        <div class="d-flex justify-content-between col-md-4 col-4"> 
-                            <div class="input-group mb-3">
-                            <a class="input-group-text text-decoration-none" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pizzaid="@line.Pizza.ID">+</a>
-                            <input type = "text" class="form-control text-center" value="@line.Amount">
-                            <a class="input-group-text text-decoration-none" asp-controller="ShoppingCart" asp-action="RemoveFromShoppingCart" asp-route-pizzaid="@line.Pizza.ID">-</a>
-                            </div>
-                        </div>
+                            <a class="btn btn-outline-danger" asp-controller="ShoppingCart" asp-action="RemoveFromShoppingCart" asp-route-pizzaid="@line.Pizza.ID">Obriši picu</a>
                         </div>
                     </div>
                 </div>
@@ -45,6 +39,9 @@
                 <h4 class="col text-end">@Model.ShoppingCartTotal.ToString("c")</h4>
             </div>
             <hr />
+            <div class="text-center d-grid">
+                <a class="btn btn-secondary" asp-action="Checkout" asp-controller="Order"><h4>Kupi sada!</h4></a>
+            </div>
         </div>
     </div>
 </div>

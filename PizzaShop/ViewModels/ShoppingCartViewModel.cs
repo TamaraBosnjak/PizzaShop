@@ -7,13 +7,13 @@ namespace PizzaShop.ViewModels
         public IShoppingCart ShoppingCart { get; }
         public decimal ShoppingCartTotal { get; }
         public decimal ShoppingCartTotalQuantity { get; }
-
-
+        
+        
         public ShoppingCartViewModel(IShoppingCart shoppingCart, decimal shoppingCartTotal, decimal shoppingCartTotalQuantity)
         {
             ShoppingCart = shoppingCart;
             ShoppingCartTotal = shoppingCartTotal;
-            ShoppingCartTotalQuantity = shoppingCartTotalQuantity;
+            ShoppingCartTotalQuantity = shoppingCartTotalQuantity; 
         }
 
     }
