@@ -7,7 +7,6 @@ namespace PizzaShop.Models
         private readonly AppDBContext _context;
         public string? ShoppingCartID { get; set; }
         public int Amount { get; set; }
-
         public List<ShoppingCartItem> ShoppingCartItems { get; set; } = default!;
 
         public ShoppingCart(AppDBContext context)

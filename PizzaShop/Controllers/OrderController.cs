@@ -25,6 +25,7 @@ namespace PizzaShop.Controllers
             
             if(_shoppingCart.ShoppingCartItems.Count == 0) 
             {
+                ModelState.AddModelError("", "Vasa korpa je prazna!");
             }
             if(ModelState.IsValid)
             {
