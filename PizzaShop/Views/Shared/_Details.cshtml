@@ -15,7 +15,9 @@
             <strong>@Model.Price<span> RSD</span></strong>
         </div>
         <div class="col-md-8">
-            <a class="btn btn-success float-end" type="button" href="#">Dodaj u korpu</a>
+            <a class="btn btn-success float-end" type="button" asp-controller="ShoppingCart"
+               asp-action="AddToShoppingCart"
+               asp-route-pizzaId="@Model.ID">Dodaj u korpu</a>
         </div>
     </div>
 </div>

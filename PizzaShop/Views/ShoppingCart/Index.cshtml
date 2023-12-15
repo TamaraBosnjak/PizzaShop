@@ -1,5 +1,6 @@
 ﻿@using PizzaShop.ViewModels
 @using PizzaShop.Models
+@using System.Globalization;
 @model ShoppingCartViewModel
 
 <h3 class="my-5">
@@ -23,7 +24,7 @@
                             <h5 class="card-text">@line.Amount x @line.Pizza.Name</h5>
                             <div class="d-flex justify-content-between">
                                 <h6>@line.Pizza.ShortDescription</h6>
-                                <h2>@line.Pizza.Price.ToString("c")</h2>
+                                <h2>@line.Pizza.Price.ToString("c", CultureInfo.CreateSpecificCulture("sr-rsd"))</h2>
                             </div>
                             <div class="d-flex justify-content-end">
                             <a class="btn btn-secondary" asp-controller="ShoppingCart" asp-action="RemoveFromShoppingCart" asp-route-pizzaid="@line.Pizza.ID">
@@ -43,7 +44,7 @@
         <div class="card shopping-cart-card p-3">
             <div class="row">
                 <h4 class="col">Total:</h4>
-                <h4 class="col text-end">@Model.ShoppingCartTotal.ToString("c")</h4>
+                <h4 class="col text-end">@Model.ShoppingCartTotal.ToString("c", CultureInfo.CreateSpecificCulture("sr-rsd"))</h4>
             </div>
             <hr />
             <div class="text-center d-grid">
