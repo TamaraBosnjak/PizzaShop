@@ -1,14 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
 namespace PizzaShop.Models
 {
-    public class Order
+    public class User
     {
         [BindNever]
-        public int ID { get; set; }
-        public List<OrderDetail>? OrderDetails { get; set; } = default!;
+        public int UserID { get; set; }
+        [Required(ErrorMessage = "UserName je neispravan")]
+        [Display(Name = "Korisnicko ime")]
+        [StringLength(20, ErrorMessage = "UserName je predugacak")]
+        public string UserName { get; set; }
+        [Required(ErrorMessage = "Password je neispravan")]
+        [Display(Name = "Lozinka")]
+        [StringLength(20, ErrorMessage = "Password je predugacak")]
+        public string Password { get; set; }
         [Required(ErrorMessage = "Ime je neispravno")]
         [Display(Name = "Ime")]
         [StringLength(20, ErrorMessage = "Ime je predugacko")]
@@ -29,20 +35,11 @@ namespace PizzaShop.Models
         [Display(Name = "Drzava")]
         [StringLength(50, ErrorMessage = "Ime drzave je predugacko")]
         public string Country { get; set; }
+        public string? Email { get; set; }
         [Required(ErrorMessage = "Broj telefona je obavezan!")]
         [Display(Name = "Broj telefona")]
         [RegularExpression(@"^(\d{10})$", ErrorMessage = "Broj telefona nije validan!")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
-        [Display(Name = "Email adresa")]
-        [StringLength(50, ErrorMessage = "Email adresa je predugacka")]
-        [DataType(DataType.EmailAddress)]
-        public string? Email { get; set; }
-        [BindNever]
-        public DateTime OrderPlaced { get; set; }
-        [BindNever]
-        public decimal OrderTotal { get; set; }
-        
-       
     }
 }
