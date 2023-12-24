@@ -4,7 +4,7 @@ namespace PizzaShop.ViewModels
 {
     public class PizzaCardViewModel
     {
-       public IPizzaRepository PizzaRepository { get; }
+        public IPizzaRepository PizzaRepository { get; }
         public int Amount { get; }
         public PizzaCardViewModel(IPizzaRepository pizzaRepository, int amount)
         {

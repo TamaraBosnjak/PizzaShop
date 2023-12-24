@@ -24,7 +24,7 @@ namespace PizzaShop.Models
         }
         public void AddToCart(Pizza pizza, int amount)
         {
-            var shoppingCartItem = _context.ShoppingCartItems.SingleOrDefault(s => s.Pizza.ID == pizza.ID && s.ShoppingCartID == ShoppingCartID);
+            var shoppingCartItem = _context.ShoppingCartItems.SingleOrDefault(s => s.Pizza.ID == pizza.ID &&  s.Amount == amount && s.ShoppingCartID == ShoppingCartID);
             if (shoppingCartItem == null)
             {
                 shoppingCartItem = new ShoppingCartItem
