@@ -39,8 +39,8 @@ namespace PizzaShop.Controllers
                 return View("Index",user);
             }
         }
-        public IActionResult Success() 
-        { 
+        public IActionResult Success()
+        {
             return View();
         }
     }

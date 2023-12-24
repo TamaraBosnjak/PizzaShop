@@ -13,14 +13,14 @@ namespace PizzaShop.Controllers
             _orderRepository = orderRepository;
             _shoppingCart = shoppingCart;
         }
-        public IActionResult Checkout() 
+        public IActionResult Checkout()
         {
             return View();
         }
         [HttpPost]
         public IActionResult Checkout(Order order) 
         {
-            var item = _shoppingCart.GetShoppingCartItems();
+            var item = _shoppingCart.ShoppingCartItems;
             _shoppingCart.ShoppingCartItems = item;
             
             if(_shoppingCart.ShoppingCartItems.Count == 0) 
