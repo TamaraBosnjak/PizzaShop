@@ -59,11 +59,9 @@ namespace PizzaShop.Models
                     _context.ShoppingCartItems.Remove(shoppingCartItem);
                 }
             }
-
             _context.SaveChanges(true);
             return localAmount;
         }
-
         public List<ShoppingCartItem> GetShoppingCartItems()
         {
             return ShoppingCartItems ??= _context.ShoppingCartItems.Where(c => c.ShoppingCartID == ShoppingCartID).Include(s => s.Pizza).ToList();
@@ -72,12 +70,6 @@ namespace PizzaShop.Models
         {
             var total = _context.ShoppingCartItems.Where(c => c.ShoppingCartID == ShoppingCartID).Select(c => c.Pizza.Price * c.Amount).Sum();
             return total;
-        }
-
-        public decimal GetShoppingCartTotalQuantity()
-        {
-            var totalQuantity = _context.ShoppingCartItems.Where(c => c.ShoppingCartID == ShoppingCartID).Select(c => c.Amount).Sum();
-            return totalQuantity;
         }
         public void ClearCart()
         {

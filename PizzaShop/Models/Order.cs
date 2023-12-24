@@ -31,7 +31,7 @@ namespace PizzaShop.Models
         public string Country { get; set; }
         [Required(ErrorMessage = "Broj telefona je obavezan!")]
         [Display(Name = "Broj telefona")]
-        [RegularExpression(@"^(\d{10})$", ErrorMessage = "Broj telefona nije validan!")]
+        [RegularExpression(@"^(\d{9,10})$", ErrorMessage = "Broj telefona nije validan!")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
         [Display(Name = "Email adresa")]

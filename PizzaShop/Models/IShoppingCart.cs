@@ -8,6 +8,6 @@
         decimal GetShoppingCartTotal();
         List<ShoppingCartItem> ShoppingCartItems { get; set; }
         void ClearCart();
-        decimal GetShoppingCartTotalQuantity();
+       
     }
 }
