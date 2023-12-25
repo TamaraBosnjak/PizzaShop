@@ -28,7 +28,7 @@ namespace PizzaShop.Controllers
 
                     return View("Success");
                 }
-                else 
+                else
                 {
                     ModelState.AddModelError("", "Korisnicko ime " + user.UserName + " je zauzeto");
                     return View("Index", user);
@@ -42,6 +42,32 @@ namespace PizzaShop.Controllers
         public IActionResult Success()
         {
             return View();
+        }
+
+        public IActionResult Login() 
+        {
+            return View();
+        }
+
+        public IActionResult SignIn(User user) 
+        {
+            if(ModelState.IsValid) 
+            {
+                var isExist = _userRepository.IsExist(user.UserName);
+                var isPasswordOK = _userRepository.IsPasswordOK(user.UserName);
+
+                if (isExist && isPasswordOK) 
+                {
+                    return View("Success");
+                }
+                else 
+                {
+                    ModelState.AddModelError("", "Korisnicko ime " + user.UserName + " nije ispravno");
+                    ModelState.AddModelError("", "Lozinka " + user.Password + "nije ispravna");
+                    return View("Index", user);
+                }
+            }
+            return View("Index", user);
         }
     }
 }

@@ -24,6 +24,14 @@
 
             return false;
         }
+        public bool IsPasswordOK(string password) 
+        {
+            if(_appDBContext.Users.FirstOrDefault(u => u.Password == password) != null)
+            {
+                return true;
+            }
+            return false;
+        }
 
     }
 }
