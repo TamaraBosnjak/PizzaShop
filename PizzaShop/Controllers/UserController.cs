@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PizzaShop.Models;
+using PizzaShop.ViewModels;
 
 namespace PizzaShop.Controllers
 {
@@ -16,9 +17,9 @@ namespace PizzaShop.Controllers
             return View();
         }
 
-        public IActionResult Register(User user) 
+        public IActionResult Register(User user)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 var isExist = _userRepository.IsExist(user.UserName);
 
@@ -36,7 +37,7 @@ namespace PizzaShop.Controllers
             }
             else
             {
-                return View("Index",user);
+                return View("Index", user);
             }
         }
         public IActionResult Success()
@@ -44,30 +45,39 @@ namespace PizzaShop.Controllers
             return View();
         }
 
-        public IActionResult Login() 
+        public IActionResult Login()
         {
-            return View();
+            var vm = new LoginViewModel();
+
+            return View(vm);
         }
 
-        public IActionResult SignIn(User user) 
+        public IActionResult SignIn(LoginViewModel user)
         {
-            if(ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
-                var isExist = _userRepository.IsExist(user.UserName);
-                var isPasswordOK = _userRepository.IsPasswordOK(user.UserName);
+                return View("Login", user);
+            }
 
-                if (isExist && isPasswordOK) 
+            var isExist = _userRepository.IsExist(user.UserName);
+
+            if (isExist) 
+            {
+                var isPasswordOK = _userRepository.IsPasswordOK(user.Password);
+
+                if (isPasswordOK) 
                 {
-                    return View("Success");
-                }
-                else 
-                {
-                    ModelState.AddModelError("", "Korisnicko ime " + user.UserName + " nije ispravno");
-                    ModelState.AddModelError("", "Lozinka " + user.Password + "nije ispravna");
-                    return View("Index", user);
+                    return RedirectToAction("SignInSuccess");
                 }
             }
-            return View("Index", user);
+
+            ModelState.AddModelError("", "Neispravni kredencijali");
+            return View("Login", user);
+        }
+        public IActionResult SignInSuccess()
+        {
+            //ViewBag.Message = "Uspesno ste se ulogovali!";
+            return View();
         }
     }
 }
