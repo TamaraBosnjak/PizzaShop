@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PizzaShop.Models;
 
 namespace PizzaShop.Controllers
@@ -15,8 +16,24 @@ namespace PizzaShop.Controllers
         }
         public IActionResult Checkout()
         {
-            return View();
+            var userCookie = Request.Cookies["User"];
+            var user = JsonConvert.DeserializeObject<User>(userCookie!);
+
+            var vm = new Order();
+
+            if (user != null)
+            {
+                vm.Address = user.Address;
+                vm.City = user.City;
+                vm.Country = user.Country;
+                vm.PhoneNumber = user.PhoneNumber;
+                vm.FirstName = user.FirstName;
+                vm.LastName = user.LastName;
+                vm.Email = user.Email;
+            }
+            return View(vm);
         }
+
         [HttpPost]
         public IActionResult Checkout(Order order) 
         {

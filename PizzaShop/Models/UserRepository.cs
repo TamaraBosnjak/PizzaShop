@@ -1,4 +1,5 @@
-﻿using PizzaShop.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
+using PizzaShop.Helpers;
 
 namespace PizzaShop.Models
 {
@@ -19,24 +20,9 @@ namespace PizzaShop.Models
             _appDBContext.SaveChanges();
         }
 
-        public bool IsExist(string username)
+        public User GetUserByUsername(string username)
         {
-            if (_appDBContext.Users.FirstOrDefault(u => u.UserName == username) != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-        public bool IsPasswordOK(string password) 
-        {
-            var inputPassword = EncryptionHelper.Encrypt(password);
-
-            if(_appDBContext.Users.FirstOrDefault(u => u.Password == inputPassword) != null)
-            {
-                return true;
-            }
-            return false;
+            return _appDBContext.Users.FirstOrDefault(u => u.UserName == username)!;
         }
 
     }

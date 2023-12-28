@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,6 +16,16 @@
     <script src="~/lib/bootstrap/js/bootstrap.js"></script>
      <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
 </head>
+
+@{
+    var user = new User();
+    var userCookie = HttpContextAccessor.HttpContext!.Request.Cookies["User"];
+    if(userCookie != null)
+    {
+        user = JsonConvert.DeserializeObject<User>(userCookie!);
+    }
+}
+
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-primary">
@@ -44,11 +58,21 @@
                             <a class="nav-link" asp-controller="contact" asp-action="index">Kontakt</a>
                         </li>
                     </ul>
+                    @if (!string.IsNullOrEmpty(user!.UserName))
+                    {
+                        <div class="navbar-nav ml-auto">
+                            <a class="nav-item nav-link" asp-controller="User" asp-action="Profile">@user.UserName</a>
+                            <a class="nav-item nav-link" asp-controller="User" asp-action="Logout">Izloguj se</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="navbar-nav ml-auto">
+                            <a class="nav-item nav-link" asp-controller="User" asp-action="Login">Prijavite se</a>
+                            <a class="nav-item nav-link" asp-controller="User" asp-action="Index">Registrujte se</a>
+                        </div>
+                    }
                     <vc:shopping-cart-summary></vc:shopping-cart-summary>
-                </div>
-                <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link" asp-controller="User" asp-action="Login">Prijavite se</a>
-                    <a class="nav-item nav-link" asp-controller="User" asp-action="Index">Registrujte se</a>
                 </div>
             </div>
         </nav>
