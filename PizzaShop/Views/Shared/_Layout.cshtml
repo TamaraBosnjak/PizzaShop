@@ -41,9 +41,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="nav navbar-nav mr-auto">
-                        <li class="nav-item ">
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
                             <a class="nav-link active" asp-controller="home" asp-action="index">Početna</a>
                         </li>
                     
@@ -58,20 +58,22 @@
                             <a class="nav-link" asp-controller="contact" asp-action="index">Kontakt</a>
                         </li>
                     </ul>
-                    @if (!string.IsNullOrEmpty(user!.UserName))
-                    {
-                        <div class="navbar-nav ml-auto">
-                            <a class="nav-item nav-link" asp-controller="User" asp-action="Profile">@user.UserName</a>
-                            <a class="nav-item nav-link" asp-controller="User" asp-action="Logout">Izloguj se</a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="navbar-nav ml-auto">
-                            <a class="nav-item nav-link" asp-controller="User" asp-action="Login">Prijavite se</a>
-                            <a class="nav-item nav-link" asp-controller="User" asp-action="Index">Registrujte se</a>
-                        </div>
-                    }
+                    <ul class="nav navbar-nav">
+                        @if (!string.IsNullOrEmpty(user!.UserName))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-item nav-link" asp-controller="User" asp-action="Profile">@user.UserName</a>
+                                <a class="nav-item nav-link" asp-controller="User" asp-action="Logout">Izloguj se</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-item nav-link" asp-controller="User" asp-action="Login">Prijavite se</a>
+                                <a class="nav-item nav-link" asp-controller="User" asp-action="Index">Registrujte se</a>
+                            </li>
+                        }
+                    </ul>
                     <vc:shopping-cart-summary></vc:shopping-cart-summary>
                 </div>
             </div>

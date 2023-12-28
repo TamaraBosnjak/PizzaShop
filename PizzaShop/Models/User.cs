@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PizzaShop.Models
 {
@@ -15,6 +16,12 @@ namespace PizzaShop.Models
         [Display(Name = "Lozinka")]
         [StringLength(20, ErrorMessage = "Password je predugacak")]
         public string Password { get; set; }
+        [Required(ErrorMessage = "Niste uneli identicnu lozinku")]
+        [NotMapped]
+        [Compare("Password")]
+        [Display(Name = "Ponovite lozinku")]
+        [StringLength(20, ErrorMessage = "Password je predugacak")]
+        public string ConfirmPassword { get; set; }
         [Required(ErrorMessage = "Ime je neispravno")]
         [Display(Name = "Ime")]
         [StringLength(20, ErrorMessage = "Ime je predugacko")]

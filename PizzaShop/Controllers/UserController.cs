@@ -9,7 +9,6 @@ namespace PizzaShop.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
-
         public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
@@ -18,7 +17,6 @@ namespace PizzaShop.Controllers
         {
             return View();
         }
-
         public IActionResult Register(User registerUser)
         {
             if (ModelState.IsValid)
@@ -45,14 +43,11 @@ namespace PizzaShop.Controllers
         {
             return View();
         }
-
         public IActionResult Login()
         {
             var vm = new LoginViewModel();
-
             return View(vm);
         }
-
         public IActionResult SignIn(LoginViewModel loginUser)
         {
             if (!ModelState.IsValid)
@@ -77,10 +72,9 @@ namespace PizzaShop.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-
             ModelState.AddModelError("", "Neispravni kredencijali");
 
-            return View("Login", user);
+            return View("Login");
         }
     }
 }
