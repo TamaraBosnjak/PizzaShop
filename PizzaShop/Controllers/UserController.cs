@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PizzaShop.Helpers;
 using PizzaShop.Models;
 using PizzaShop.ViewModels;
+using System.Web.Providers.Entities;
+using User = PizzaShop.Models.User;
 
 namespace PizzaShop.Controllers
 {
@@ -75,6 +78,19 @@ namespace PizzaShop.Controllers
             ModelState.AddModelError("", "Neispravni kredencijali");
 
             return View("Login");
+        }
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("User");
+            return RedirectToAction("Index", "Home");
+        }
+        public IActionResult Profile() 
+        {
+            return View();
+        }
+        public IActionResult ChangeProfile()
+        {
+            return View();
         }
     }
 }

@@ -17,6 +17,12 @@ namespace PizzaShop.Controllers
         public IActionResult Checkout()
         {
             var userCookie = Request.Cookies["User"];
+
+            if (userCookie == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             var user = JsonConvert.DeserializeObject<User>(userCookie!);
 
             var vm = new Order();
