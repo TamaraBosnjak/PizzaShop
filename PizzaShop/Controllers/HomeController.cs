@@ -9,14 +9,12 @@ namespace PizzaShop.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPizzaRepository _pizzaRepository;
-        private readonly IShoppingCart _shoppingCart;
+       
 
-        public HomeController(ILogger<HomeController> logger, IPizzaRepository pizzaRepository, IShoppingCart shoppingCart)
+        public HomeController(ILogger<HomeController> logger, IPizzaRepository pizzaRepository)
         {
             _logger = logger;
             _pizzaRepository = pizzaRepository;
-            _shoppingCart = shoppingCart;
-
         }
 
         public IActionResult Index()

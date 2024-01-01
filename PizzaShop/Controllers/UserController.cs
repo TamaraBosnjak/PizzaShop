@@ -72,7 +72,7 @@ namespace PizzaShop.Controllers
                     var serializedUser = JsonConvert.SerializeObject(user);
                     Response.Cookies.Append("User", serializedUser, cookieOptions);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Profile", "User");
                 }
             }
             ModelState.AddModelError("", "Neispravni kredencijali");
@@ -81,16 +81,51 @@ namespace PizzaShop.Controllers
         }
         public IActionResult Logout()
         {
-            Response.Cookies.Delete("User");
+            if (Request.Cookies["User"] != null)
+            {
+                Response.Cookies.Delete("User");
+            }
+           
             return RedirectToAction("Index", "Home");
         }
         public IActionResult Profile() 
         {
-            return View();
+            User user = new User();
+            var userCookie = HttpContext!.Request.Cookies["User"];
+
+            if (userCookie != null) 
+            {
+                user = JsonConvert.DeserializeObject<User>(userCookie)!;
+            }
+
+            var vm = new UpdateUserViewModel()
+            {
+                ID = user.UserID,
+                UserName = user.UserName
+            };
+
+            return View(vm);
         }
-        public IActionResult ChangeProfile()
+        public IActionResult ChangeProfile(UpdateUserViewModel model)
         {
-            return View();
+            var user = _userRepository.GetUserByID(model.ID);
+
+            if (model.UserName == user.UserName)
+            {
+                ModelState.AddModelError("", "Korisnicko ime nije ispravno");
+                return View("Profile", model);
+            }
+
+            if(user.Password == EncryptionHelper.Encrypt(model.CurrentPassword)) 
+            {
+                _userRepository.UpdatePassword(user, model.NewPassword);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Password nije ispravan");
+                return View("Profile", model);
+            }
         }
     }
 }

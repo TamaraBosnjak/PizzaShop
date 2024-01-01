@@ -42,5 +42,6 @@ namespace PizzaShop.Models
         [RegularExpression(@"^(\d{9,10})$", ErrorMessage = "Broj telefona nije validan!")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

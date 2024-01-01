@@ -25,5 +25,28 @@ namespace PizzaShop.Models
             return _appDBContext.Users.FirstOrDefault(u => u.UserName == username)!;
         }
 
+
+        public User GetUserByID(int ID)
+        {
+            return _appDBContext.Users.FirstOrDefault(u => u.UserID == ID)!;
+        }
+
+        public User GetUsersWithPizzasByUserID(int ID)
+        {
+            return _appDBContext.Users
+                .Include(u => u.Orders)
+                .ThenInclude(o => o.OrderDetails)
+                .ThenInclude(od => od.Pizza)
+                .FirstOrDefault(u => u.UserID == ID)!;
+        }
+        public void UpdatePassword(User user, string newPassword) 
+        {
+            user.Password = EncryptionHelper.Encrypt(newPassword);
+
+            _appDBContext.Users.Update(user);
+
+            _appDBContext.SaveChanges();
+        }
+
     }
 }
