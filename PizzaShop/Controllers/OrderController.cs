@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PizzaShop.Models;
+using PizzaShop.ViewModels;
 
 namespace PizzaShop.Controllers
 {
@@ -61,10 +62,23 @@ namespace PizzaShop.Controllers
             }
             return View(order);
         }
+
         public IActionResult CheckoutComplete() 
         {
             ViewBag.Message = "Uspesna porudzbina!";
             return View();
+        }
+
+        public IActionResult AllOrders(Order order)
+        {
+            //var userCookie = Request.Cookies["User"];
+            //var user = JsonConvert.DeserializeObject<User>(userCookie!);
+
+            var orders = _orderRepository.GetOrdersByUser(order.UserID);
+            _orderRepository.AllOrdersFromEachUser = orders;
+
+            var allOrdersViewModel = new AllOrdersViewModel(_orderRepository,_orderRepository.GetOrdersByUser(order.UserID));
+            return View(allOrdersViewModel);
         }
     }
 }

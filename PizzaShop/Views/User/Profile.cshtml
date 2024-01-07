@@ -10,32 +10,39 @@
     @Html.HiddenFor(m => m.ID)
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <h3></h3>
-    <div class="col-6">
-        <div class="row g-2">
-            <div class="col-12">
-                <label asp-for="UserName" class="form-label"></label>
-                <input asp-for="UserName" class="form-control" disabled />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="col-12">
-                <label asp-for="CurrentPassword" class="form-label"></label>
-                <input asp-for="CurrentPassword" type = "password" class="form-control" />
-                <span asp-validation-for="CurrentPassword" class="text-danger"></span>
-            </div>
-            <div class="col-12">
-                <label asp-for="NewPassword" class="form-label"></label>
-                <input asp-for="NewPassword" type="password" class="form-control" />
-                <span asp-validation-for="NewPassword" class="text-danger"></span>
-            </div>
-            <div class="col-12">
-                <label asp-for="ConfirmPassword" class="form-label"></label>
-                <input asp-for="ConfirmPassword" type="password" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="mt-2">
-                <div class="col-md-offset-2 col-md-5">
-                    <input type="submit" class="btn btn-secondary" value="Izmeni podatke" />
+    <div class="row justify-content-between">
+        <div class="col-6">
+            <div class="row g-2">
+                <div class="col-12">
+                    <label asp-for="UserName" class="form-label"></label>
+                    <input asp-for="UserName" class="form-control" disabled />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
+                <div class="col-12">
+                    <label asp-for="CurrentPassword" class="form-label"></label>
+                    <input asp-for="CurrentPassword" type = "password" class="form-control" />
+                    <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="NewPassword" class="form-label"></label>
+                    <input asp-for="NewPassword" type="password" class="form-control" />
+                    <span asp-validation-for="NewPassword" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="mt-2">
+                    <div class="col-md-offset-2 col-md-5">
+                        <input type="submit" class="btn btn-secondary" value="Izmeni podatke" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 mt-3">
+            <div class="row">
+                <a class="btn btn-primary d-flex justify-content-center" asp-action="AllOrders" asp-controller="Order">Moje porudžbine</a>
             </div>
         </div>
     </div>

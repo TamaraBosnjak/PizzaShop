@@ -62,15 +62,15 @@
                         @if (!string.IsNullOrEmpty(user!.UserName))
                         {
                             <li class="nav-item">
-                                <a class="nav-item nav-link d-inline d-m-inline-block btn btn-outline-light" asp-controller="User" asp-action="Profile">@user.UserName</a>
-                                <a class="nav-item nav-link d-inline d-m-inline-block btn btn-outline-light" asp-controller="User" asp-action="Logout">Izloguj se</a>
+                                <a class="nav-item nav-link d-inline d-m-inline-block" asp-controller="User" asp-action="Profile">@user.UserName</a>
+                                <a class="nav-item nav-link d-inline d-m-inline-block" asp-controller="User" asp-action="Logout">Izloguj se</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-item nav-link d-inline d-lg-inline-block btn btn-outline-light" asp-controller="User" asp-action="Login">Prijavite se</a>
-                                <a class="nav-item nav-link d-inline d-lg-inline-block btn btn-outline-light" asp-controller="User" asp-action="Index">Registrujte se</a>
+                                <a class="nav-item nav-link d-inline d-lg-inline-block" asp-controller="User" asp-action="Login">Prijavite se</a>
+                                <a class="nav-item nav-link d-inline d-lg-inline-block" asp-controller="User" asp-action="Index">Registrujte se</a>
                             </li>
                         }
                     </ul>

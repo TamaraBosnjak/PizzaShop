@@ -1,0 +1,32 @@
+﻿@using PizzaShop.ViewModels;
+@model AllOrdersViewModel
+
+<div class="col">
+    <h2 class="mt-5">Vaše porudžbine</h2>
+    <h4 class="text-muted">Ovde možete pogledati sve vaše porudžbine</h4>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Broj porudžbine</th>
+                <th>Datum</th>
+                <th class="item">Artikal</th>
+                <th class="item">Cena</th>
+                <th class="item">Količina</th>
+                <th class="item">Ukupno</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var line in Model.OrderRepository.AllOrdersFromEachUser)
+            {
+                <tr>
+                    <td>@line.ID</td>
+                    <td>@line.OrderPlaced</td>
+                 @*    <td>@line.PizzaID</td>
+                    <td>@line.Amount</td>
+                    <td>@line.Price</td> *@
+                    <td>@line.OrderTotal</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

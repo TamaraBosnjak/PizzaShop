@@ -22,12 +22,12 @@ namespace PizzaShop.Controllers
             var shoppingCartViewModel = new ShoppingCartViewModel(_shoppingCart, _shoppingCart.GetShoppingCartTotal());
             return View(shoppingCartViewModel);
         }
-        public RedirectToActionResult AddToShoppingCart(int pizzaId, int amount)
+        public RedirectToActionResult AddToShoppingCart(int pizzaId)
         {
             var selectedPizza = _pizzaRepository.GetPizzaByID(pizzaId);
             if (selectedPizza != null)
             {
-                _shoppingCart.AddToCart(selectedPizza, amount);
+                _shoppingCart.AddToCart(selectedPizza, 1);
             }
             return RedirectToAction("Index");
         }

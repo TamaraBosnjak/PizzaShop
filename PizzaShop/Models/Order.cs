@@ -47,6 +47,6 @@ namespace PizzaShop.Models
         [BindNever]
         public decimal OrderTotal { get; set; }
         
-       
+        
     }
 }
