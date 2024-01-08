@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Data.Entity;
-using System.Linq;
 
 namespace PizzaShop.Models
 {
@@ -8,9 +6,6 @@ namespace PizzaShop.Models
     {
         private readonly AppDBContext _context;
         private readonly IShoppingCart _shoppingCart;
-        //public int OrderID { get; set; }
-
-        public List<Order> AllOrdersFromEachUser { get; set; } = default!;
 
         public OrderRepository(AppDBContext context, IShoppingCart shoppingCart)
         {
@@ -38,16 +33,13 @@ namespace PizzaShop.Models
             _context.Orders.Add(order);
             _context.SaveChanges();
         }
-        public List<Order> GetOrdersByUser(int userID)
+
+        public IQueryable<Order> GetOrdersByUser(int userID)
         {
-            return AllOrdersFromEachUser = _context.Orders.Where(o => o.UserID == userID).ToList();
+            return _context.Orders
+                .Include(p => p.OrderDetails)
+                .ThenInclude(od => od.Pizza)
+                .Where(o => o.UserID == userID);
         }
-        //public Order GetOrdersWithPizzasByUserID(int ID)
-        //{
-        //    return _context.Orders
-        //        .FirstOrDefault(u => u.ID == ID)
-        //        .Include(u => u.OrderDetails)
-        //        .ThenInclude(od => od.Pizza);
-        //}
     }
 }

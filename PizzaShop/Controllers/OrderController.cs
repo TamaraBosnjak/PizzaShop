@@ -69,16 +69,15 @@ namespace PizzaShop.Controllers
             return View();
         }
 
-        public IActionResult AllOrders(Order order)
+        public IActionResult AllOrders()
         {
-            //var userCookie = Request.Cookies["User"];
-            //var user = JsonConvert.DeserializeObject<User>(userCookie!);
+            var userCookie = Request.Cookies["User"];
+            var user = JsonConvert.DeserializeObject<User>(userCookie!);
 
-            var orders = _orderRepository.GetOrdersByUser(order.UserID);
-            _orderRepository.AllOrdersFromEachUser = orders;
+            var vm = new UserOrdersViewModel();
+            vm.UserOrders = _orderRepository.GetOrdersByUser(user!.UserID).ToList();
 
-            var allOrdersViewModel = new AllOrdersViewModel(_orderRepository,_orderRepository.GetOrdersByUser(order.UserID));
-            return View(allOrdersViewModel);
+            return View(vm);
         }
     }
 }

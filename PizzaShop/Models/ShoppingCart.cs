@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 
 namespace PizzaShop.Models
 {
@@ -66,6 +67,7 @@ namespace PizzaShop.Models
         {
             return ShoppingCartItems ??= _context.ShoppingCartItems.Where(c => c.ShoppingCartID == ShoppingCartID).Include(s => s.Pizza).ToList();
         }
+
         public decimal GetShoppingCartTotal()
         {
             var total = _context.ShoppingCartItems.Where(c => c.ShoppingCartID == ShoppingCartID).Select(c => c.Pizza.Price * c.Amount).Sum();

@@ -1,5 +1,5 @@
 ﻿@using PizzaShop.ViewModels;
-@model AllOrdersViewModel
+@model UserOrdersViewModel
 
 <div class="col">
     <h2 class="mt-5">Vaše porudžbine</h2>
@@ -16,14 +16,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var line in Model.OrderRepository.AllOrdersFromEachUser)
+            @foreach(var line in Model.UserOrders)
             {
                 <tr>
                     <td>@line.ID</td>
                     <td>@line.OrderPlaced</td>
-                 @*    <td>@line.PizzaID</td>
-                    <td>@line.Amount</td>
-                    <td>@line.Price</td> *@
+                    <td>@string.Join(", ", line.OrderDetails!.Where(od => od.OrderID == line.ID).Select(od => od.Pizza.Name))</td>
+                    <td>@line.OrderDetails!.Where(od => od.OrderID == line.ID).Select(od => od.Amount).Count()</td>
+                    <td>@string.Join(", ", line.OrderDetails!.Where(od => od.OrderID == line.ID).Select(od => od.Price))</td>
                     <td>@line.OrderTotal</td>
                 </tr>
             }
