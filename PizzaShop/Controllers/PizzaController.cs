@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PizzaShop.Models;
 using PizzaShop.ViewModels;
 
@@ -46,7 +47,24 @@ namespace PizzaShop.Controllers
             Pizza p = _pizzaRepository.GetPizzaByID(id);
             return View(new DetailsViewModel(id, p.ImageUrl, p.LongDescription, p.Price));
         }
+        public IActionResult YourCustomPizza()
+        {
+            var userCookie = Request.Cookies["User"];
+            var user = JsonConvert.DeserializeObject<User>(userCookie!);
 
+            var vm = new UserCustomPizzaViewModel();
+            var pizza = new Pizza()
+            {
+                Name = vm.PizzaName,
+                LongDescription = string.Join(", ", vm.Pecenica, vm.Sunka, vm.Sir, vm.Pelat, vm.Brokoli, vm.Paprika, vm.Kukuruz, vm.Masline, vm.Jaje, vm.Pecurke),
+                Price = 1500,
+                UserID = user.UserID,
+                Category = vm.Category,
+            };
 
+            _pizzaRepository.AddUsersCustomPizza(user.UserID);
+
+            return View(vm);
+        }
     }
 }

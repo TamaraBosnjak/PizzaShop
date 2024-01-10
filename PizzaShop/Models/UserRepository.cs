@@ -25,7 +25,6 @@ namespace PizzaShop.Models
             return _appDBContext.Users.FirstOrDefault(u => u.UserName == username)!;
         }
 
-
         public User GetUserByID(int ID)
         {
             return _appDBContext.Users.FirstOrDefault(u => u.UserID == ID)!;

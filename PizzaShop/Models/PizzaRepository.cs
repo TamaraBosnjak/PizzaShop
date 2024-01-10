@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PizzaShop.ViewModels;
 
 namespace PizzaShop.Models
 {
@@ -18,8 +19,15 @@ namespace PizzaShop.Models
         {
             get
             {
-                return _appDBContext.Pizzas.Include(p => p.Category);
+                return _appDBContext.Pizzas.Include(p => p.Category).Where(c => c.Category.ID != 4);
             }
+        }
+        public Pizza AddUsersCustomPizza(int userID)
+        {
+            return _appDBContext.Pizzas.Include(p => p.Category).FirstOrDefault(c => c.UserID == userID);
+
+            _appDBContext.Pizzas.Add();
+            _appDBContext.SaveChanges();
         }
     }
 }

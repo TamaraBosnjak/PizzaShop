@@ -70,7 +70,7 @@ namespace PizzaShop.Controllers
         }
 
         public IActionResult AllOrders()
-        {
+        { 
             var userCookie = Request.Cookies["User"];
             var user = JsonConvert.DeserializeObject<User>(userCookie!);
 
