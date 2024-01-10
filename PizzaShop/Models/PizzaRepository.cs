@@ -9,24 +9,24 @@ namespace PizzaShop.Models
         public PizzaRepository(AppDBContext appDBContext)
         {
             _appDBContext = appDBContext;
-
         }
+
         public Pizza GetPizzaByID(int id)
         {
-            return _appDBContext.Pizzas.Include(p => p.Category).FirstOrDefault(p => p.ID == id);
+            return _appDBContext.Pizzas.Include(p => p.Category).FirstOrDefault(p => p.ID == id)!;
         }
+
         public IEnumerable<Pizza> Pizzas
         {
             get
             {
-                return _appDBContext.Pizzas.Include(p => p.Category).Where(c => c.Category.ID != 4);
+                return _appDBContext.Pizzas.Include(p => p.Category);
             }
         }
-        public Pizza AddUsersCustomPizza(int userID)
-        {
-            return _appDBContext.Pizzas.Include(p => p.Category).FirstOrDefault(c => c.UserID == userID);
 
-            _appDBContext.Pizzas.Add();
+        public void SavePizza(Pizza pizza) 
+        {
+            _appDBContext.Pizzas.Add(pizza);
             _appDBContext.SaveChanges();
         }
     }

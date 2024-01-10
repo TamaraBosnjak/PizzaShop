@@ -1,12 +1,11 @@
 ﻿@using PizzaShop.ViewModels;
 @model UserCustomPizzaViewModel
 
-<form asp-action="YourCustomPizza" asp-controller="Pizza" method="post" role="form">
+<form asp-action="SavePizza" asp-controller="Pizza" method="post" role="form">
     <h3 class="my-5">
         Koje sastojke želite na vašoj pici?
     </h3>
 
-    @* @Html.HiddenFor(model => model) *@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="col-6">
@@ -14,57 +13,14 @@
             <div class="col-12">
                 <label asp-for="PizzaName" class="form-label"></label>
                 <input asp-for="PizzaName" class="form-control" />
-                @* <span asp-validation-for="" class="text-danger"></span> *@
+                <span asp-validation-for="PizzaName" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="control-label col-md-2 mt-3 mb-3">
-                    <h3>
-                        Sastojci
-                    </h3> 
-                </label>
-                <div class="col-md-10">
-                    <div>
-                        <input class="form-check-input" type="checkbox" asp-for="@Model.Sunka">
-                        <label class="form-check-label" asp-for="@Model.Sunka"></label>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" asp-for="@Model.Pecenica">
-                        <label class="form-check-label" asp-for="@Model.Pecenica"></label>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" asp-for="@Model.Pelat">
-                        <label class="form-check-label" asp-for="@Model.Pelat"></label>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" asp-for="@Model.Sir">
-                        <label class="form-check-label" asp-for="@Model.Sir"></label>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" asp-for="@Model.Masline">
-                        <label class="form-check-label" asp-for="@Model.Masline"></label>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" asp-for="@Model.Pecurke">
-                        <label class="form-check-label" asp-for="@Model.Pecurke"></label>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" asp-for="@Model.Jaje">
-                        <label class="form-check-label" asp-for="@Model.Jaje"></label>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" asp-for="@Model.Kukuruz">
-                        <label class="form-check-label" asp-for="@Model.Kukuruz"></label>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" asp-for="@Model.Paprika">
-                        <label class="form-check-label" asp-for="@Model.Paprika"></label>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" asp-for="@Model.Brokoli">
-                        <label class="form-check-label" asp-for="@Model.Brokoli"></label>
-                    </div>
-                </div>
+            <div class="col-12">
+                <label asp-for="Ingredients" class="form-label"></label>
+                <input asp-for="Ingredients" class="form-control" />
+                <span asp-validation-for="Ingredients" class="text-danger"></span>
             </div>
+            <p>Sunka, Pecenica, Pelat, Sir, Masline, Pecurke, Jaje, Kukuruz, Paprika, Brokoli</p>
             <div class="mt-3">
                 <div class="col-md-offset-2 col-md-5">
                     <input type="submit" class="btn btn-secondary" value="Sacuvaj picu" />
@@ -72,5 +28,4 @@
             </div>
         </div>
     </div>
-
 </form>

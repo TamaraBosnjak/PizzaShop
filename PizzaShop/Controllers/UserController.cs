@@ -1,10 +1,8 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PizzaShop.Helpers;
 using PizzaShop.Models;
 using PizzaShop.ViewModels;
-using System.Web.Providers.Entities;
 using User = PizzaShop.Models.User;
 
 namespace PizzaShop.Controllers

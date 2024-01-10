@@ -9,10 +9,16 @@ namespace PizzaShop.Controllers
     {
         private readonly IPizzaRepository _pizzaRepository;
         private readonly ICategoryRepository _categoryRepository;
-        public PizzaController(IPizzaRepository pizzaRepository, ICategoryRepository categoryRepository)
+        private readonly IUserRepository _userRepository;
+
+        public PizzaController(
+            IPizzaRepository pizzaRepository,
+            ICategoryRepository categoryRepository,
+            IUserRepository userRepository)
         {
             _pizzaRepository = pizzaRepository;
             _categoryRepository = categoryRepository;
+            _userRepository = userRepository;
         }
 
         public IActionResult Index(bool uslov, bool uslov2)
@@ -24,7 +30,7 @@ namespace PizzaShop.Controllers
 
             return View();
         }
-        //[Route("[controller]/Allpizzas/{categoryID?}")]
+
         public ViewResult List(int? categoryID)
         {
             IEnumerable<Pizza> pizzas;
@@ -39,32 +45,48 @@ namespace PizzaShop.Controllers
                 pizzas = _pizzaRepository.Pizzas.OrderBy(p => p.ID);
             }
 
-            return View(new PizzaListViewModel(pizzas, category));
+            if (category == "Pice korisnika") 
+            {
+                return View("UserPizzas", new PizzaListViewModel(pizzas, category));
+            }
 
+            return View(new PizzaListViewModel(pizzas, category));
         }
+
         public ViewResult Details(int id)
         {
             Pizza p = _pizzaRepository.GetPizzaByID(id);
             return View(new DetailsViewModel(id, p.ImageUrl, p.LongDescription, p.Price));
         }
+
         public IActionResult YourCustomPizza()
+        {
+            var vm = new UserCustomPizzaViewModel();
+            return View(vm);
+        }
+
+        public IActionResult SavePizza(UserCustomPizzaViewModel vm) 
         {
             var userCookie = Request.Cookies["User"];
             var user = JsonConvert.DeserializeObject<User>(userCookie!);
 
-            var vm = new UserCustomPizzaViewModel();
-            var pizza = new Pizza()
+            var pizza = new Pizza() 
             {
                 Name = vm.PizzaName,
-                LongDescription = string.Join(", ", vm.Pecenica, vm.Sunka, vm.Sir, vm.Pelat, vm.Brokoli, vm.Paprika, vm.Kukuruz, vm.Masline, vm.Jaje, vm.Pecurke),
+                Category = _categoryRepository.GetAllCategories().FirstOrDefault(c => c.Name == "Pice korisnika")!,
+                LongDescription = vm.Ingredients,
                 Price = 1500,
-                UserID = user.UserID,
-                Category = vm.Category,
+                UserID = user!.UserID,
+                ShortDescription = vm.Ingredients,
+                ImageThumbnailUrl = string.Empty,
+                ImageUrl = string.Empty,
+                IsPizzaOfTheWeek = false,
+                InStock = true
             };
 
-            _pizzaRepository.AddUsersCustomPizza(user.UserID);
+            _pizzaRepository.SavePizza(pizza);
 
-            return View(vm);
+            return RedirectToAction("Profile", "User");
         }
     }
 }
