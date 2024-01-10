@@ -42,7 +42,7 @@ namespace PizzaShop.Controllers
             }
             else
             {
-                pizzas = _pizzaRepository.Pizzas.OrderBy(p => p.ID);
+                pizzas = _pizzaRepository.Pizzas.OrderBy(p => p.ID).Where(c => c.UserID == null);
             }
 
             if (category == "Pice korisnika") 
