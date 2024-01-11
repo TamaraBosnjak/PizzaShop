@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PizzaShop.Models;
 using PizzaShop.ViewModels;
@@ -10,15 +11,18 @@ namespace PizzaShop.Controllers
         private readonly IPizzaRepository _pizzaRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IUserRepository _userRepository;
+        private readonly INotyfService _notyf;
 
         public PizzaController(
             IPizzaRepository pizzaRepository,
             ICategoryRepository categoryRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository, 
+            INotyfService notyf)
         {
             _pizzaRepository = pizzaRepository;
             _categoryRepository = categoryRepository;
             _userRepository = userRepository;
+            _notyf = notyf;
         }
 
         public IActionResult Index(bool uslov, bool uslov2)
@@ -27,7 +31,7 @@ namespace PizzaShop.Controllers
             ViewBag.Uslov2 = uslov2;
             ViewBag.Message = "Ovo je server-side poruka.";
             ViewBag.Message2 = "Ovo je druga poruka.";
-
+   
             return View();
         }
 
@@ -85,6 +89,8 @@ namespace PizzaShop.Controllers
             };
 
             _pizzaRepository.SavePizza(pizza);
+
+            _notyf.Success("Uspesno ste sacuvali picu!",3);
 
             return RedirectToAction("Profile", "User");
         }
