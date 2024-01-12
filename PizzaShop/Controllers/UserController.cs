@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PizzaShop.Helpers;
 using PizzaShop.Models;
@@ -10,9 +11,12 @@ namespace PizzaShop.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
-        public UserController(IUserRepository userRepository)
+        private readonly INotyfService _notyf;
+
+        public UserController(IUserRepository userRepository, INotyfService notyf)
         {
             _userRepository = userRepository;
+            _notyf = notyf;
         }
         public IActionResult Index()
         {
@@ -27,6 +31,7 @@ namespace PizzaShop.Controllers
                 if (user == null)
                 {
                     _userRepository.CreateUser(registerUser);
+                    _notyf.Success("Registracija uspesna!", 3);
                     return View("Success");
                 }
                 else
@@ -70,10 +75,13 @@ namespace PizzaShop.Controllers
                     var serializedUser = JsonConvert.SerializeObject(user);
                     Response.Cookies.Append("User", serializedUser, cookieOptions);
 
-                    return RedirectToAction("Profile", "User");
+                    _notyf.Success("Uspesno ste se ulogovali!", 3);
+
+                    return RedirectToAction("Index", "Home");
                 }
             }
-            ModelState.AddModelError("", "Neispravni kredencijali");
+
+            _notyf.Error("Neispravni kredencijali!", 3);
 
             return View("Login");
         }
@@ -83,7 +91,9 @@ namespace PizzaShop.Controllers
             {
                 Response.Cookies.Delete("User");
             }
-           
+
+            _notyf.Success("Uspesno ste se izlogovali!", 3);
+
             return RedirectToAction("Index", "Home");
         }
         public IActionResult Profile() 

@@ -12,9 +12,9 @@ namespace PizzaShop.Models
         [Display(Name = "Korisnicko ime")]
         [StringLength(20, ErrorMessage = "UserName je predugacak")]
         public string UserName { get; set; }
-        [Required(ErrorMessage = "Password je neispravan")]
+        [Required(ErrorMessage = "Password je obavezan!")]
         [Display(Name = "Lozinka")]
-        [StringLength(20, ErrorMessage = "Password je predugacak")]
+        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,15}$", ErrorMessage = "Password mora da sadrzi najmanje po jedno veliko i malo slovo, broj i specijalan karakter i da bude duzine 8-15 karaktera")]
         public string Password { get; set; }
         [Required(ErrorMessage = "Ime je neispravno")]
         [Display(Name = "Ime")]
@@ -42,6 +42,6 @@ namespace PizzaShop.Models
         [RegularExpression(@"^(\d{9,10})$", ErrorMessage = "Broj telefona nije validan!")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
-        public List<Order> Orders { get; set; }
+        public List<Order>? Orders { get; set; }
     }
 }

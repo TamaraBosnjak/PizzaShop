@@ -37,21 +37,31 @@ namespace PizzaShop.Controllers
 
         public ViewResult List(int? categoryID)
         {
+            var userCookie = Request.Cookies["User"];
+            var user = JsonConvert.DeserializeObject<User>(userCookie!);
+
             IEnumerable<Pizza> pizzas;
-            string? category = "Sve pice";
-            if (categoryID > 0)
+            string category = "Sve pice";
+
+            var categoryObj = _categoryRepository.GetCategoryByID(categoryID);
+
+            if (categoryObj != null) 
             {
-                pizzas = _pizzaRepository.Pizzas.Where(p => p.Category.ID == categoryID).OrderBy(p => p.ID);
-                category = _categoryRepository.GetCategoryByID(categoryID).Name;
+                category = categoryObj.Name;
             }
-            else
+
+            if (category == "Sve pice")
             {
                 pizzas = _pizzaRepository.Pizzas.OrderBy(p => p.ID).Where(c => c.UserID == null);
             }
-
-            if (category == "Pice korisnika") 
+            else if (category == "Pice korisnika")
             {
+                pizzas = _pizzaRepository.Pizzas.Where(p => p.Category.ID == categoryID && p.UserID == user!.UserID).OrderBy(p => p.ID);
                 return View("UserPizzas", new PizzaListViewModel(pizzas, category));
+            }
+            else
+            {
+                pizzas = _pizzaRepository.Pizzas.Where(p => p.Category.ID == categoryID).OrderBy(p => p.ID);
             }
 
             return View(new PizzaListViewModel(pizzas, category));
