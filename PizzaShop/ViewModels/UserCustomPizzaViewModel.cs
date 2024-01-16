@@ -5,9 +5,12 @@ namespace PizzaShop.ViewModels
 {
     public class UserCustomPizzaViewModel
     {
-        [Display(Name = "Ime pice")]
+        [Display(Name = "Naziv pice")]
         public string PizzaName { get; set; }
+
         [Display(Name = "Sastojci")]
         public string Ingredients { get; set; }
+
+        public string AllowedIngredients { get; set; }
     }
 }

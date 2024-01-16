@@ -1,8 +1,10 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using PizzaShop.Models;
 using PizzaShop.ViewModels;
+using System.Reflection.PortableExecutable;
 
 namespace PizzaShop.Controllers
 {
@@ -76,13 +78,26 @@ namespace PizzaShop.Controllers
         public IActionResult YourCustomPizza()
         {
             var vm = new UserCustomPizzaViewModel();
+            vm.AllowedIngredients = "Sunka, Pecenica, Pelat, Sir, Masline, Pecurke, Jaje, Kukuruz, Paprika, Brokoli";
+
             return View(vm);
         }
-
+        
         public IActionResult SavePizza(UserCustomPizzaViewModel vm) 
         {
             var userCookie = Request.Cookies["User"];
             var user = JsonConvert.DeserializeObject<User>(userCookie!);
+
+            var allowedIngredients = vm.AllowedIngredients.Split(',').Select(s => s.Trim()).Select(s => s.ToLower()).ToList();
+            var ingredients = vm.Ingredients.Split(',').Select(s => s.Trim()).Select(s => s.ToLower()).ToList();
+
+            var disallowedWords = ingredients.Where(word => !allowedIngredients.Contains(word)).ToList();
+
+            if (disallowedWords.Any())
+            {
+                ModelState.AddModelError("", "Uneli ste nedozvoljen sastojak: " + string.Join(", ", disallowedWords));
+                return View("YourCustomPizza", vm);
+            }
 
             var pizza = new Pizza() 
             {
@@ -104,5 +119,12 @@ namespace PizzaShop.Controllers
 
             return RedirectToAction("Profile", "User");
         }
+
+        public IActionResult OrderCustomPizza(int id) 
+        {
+
+            return View(); 
+        }
     }
+
 }

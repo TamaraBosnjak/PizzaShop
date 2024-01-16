@@ -7,6 +7,5 @@
         public string Description { get; set; }
         public IEnumerable<Pizza> Pizzas { get; set; }
 
-
     }
 }
