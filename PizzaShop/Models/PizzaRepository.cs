@@ -29,5 +29,12 @@ namespace PizzaShop.Models
             _appDBContext.Pizzas.Add(pizza);
             _appDBContext.SaveChanges();
         }
+        public void DeletePizza(int id)
+        {
+            var cartItem = _appDBContext.Pizzas.FirstOrDefault(p => p.ID == id)!;
+            _appDBContext.Pizzas.Remove(cartItem);
+            _appDBContext.SaveChanges();
+        }
+
     }
 }

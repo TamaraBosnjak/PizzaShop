@@ -120,11 +120,36 @@ namespace PizzaShop.Controllers
             return RedirectToAction("Profile", "User");
         }
 
-        public IActionResult OrderCustomPizza(int id) 
+        public IActionResult MyPizzas() 
+            {
+            var userCookie = Request.Cookies["User"];
+            var user = JsonConvert.DeserializeObject<User>(userCookie!);
+
+            IEnumerable<Pizza> pizzas;
+            string category = "Pice korisnika";
+        
+            pizzas = _pizzaRepository.Pizzas.Where(p => p.UserID == user!.UserID).OrderBy(p => p.ID);
+            var vm = new PizzaListViewModel(pizzas, category);
+               
+            return View(vm);
+        }
+
+        public IActionResult EditPizzas (UserCustomPizzaViewModel vm) 
+        {
+            return View();
+        }
+        public IActionResult DeletePizza(int pizzaId) 
         {
 
-            return View(); 
+            var pizza = _pizzaRepository.GetPizzaByID(pizzaId);
+            _pizzaRepository.DeletePizza(pizza.ID);
+            //_pizzaRepository.DeletePizza(pizza);
+
+            _notyf.Success("Uspesno ste obrisali picu!", 3);
+
+            return RedirectToAction("Profile", "User");
         }
+
     }
 
 }

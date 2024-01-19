@@ -1,0 +1,31 @@
+﻿@using PizzaShop.ViewModels;
+@model PizzaListViewModel
+
+<div class="col">
+    <h2 class="mt-5">Vaše kreirane pice</h2>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="item">Artikal</th>
+                <th class="item">Sastojci</th>
+                <th class="item">Cena</th>
+                <th class="item"></th>
+                <th class="item"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.Pizzas)
+            {
+                <tr>
+                    <td>@line.Name</td>
+                    <td>@line.LongDescription</td>
+                    <td>@line.Price</td>
+                    <td><a class="btn btn-primary" asp-action="AddToShoppingCart" asp-controller="ShoppingCart" asp-route-pizzaId="@line.ID">Izmeni</a></td>
+                    <td><a class="btn btn-primary" asp-action="DeletePizza" asp-controller="Pizza" asp-route-pizzaId="@line.ID">Obrisi</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
