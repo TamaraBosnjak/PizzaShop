@@ -27,7 +27,7 @@ namespace PizzaShop.Controllers
             }
 
             var user = JsonConvert.DeserializeObject<User>(userCookie!);
-            var userWithPizzas = _userRepository.GetUsersWithPizzasByUserID(user.UserID);
+            //var userWithPizzas = _userRepository.GetUsersWithPizzasByUserID(user.UserID);
 
             var vm = new Order();
 

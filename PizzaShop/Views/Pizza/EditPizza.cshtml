@@ -1,13 +1,14 @@
 ﻿@using PizzaShop.ViewModels;
 @model UserCustomPizzaViewModel
 
-<form asp-action="EditPizzas" asp-controller="Pizza" method="post" role="form">
+<form asp-action="EditPizza" asp-controller="Pizza" asp-route-pizzaId="@Model.PizzaID" method="post" role="form">
     <h3 class="my-5">
-        Koje sastojke želite na vašoj pici?
+        Izmenite naziv ili sastojke na vašoj pici?
     </h3>
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     @Html.HiddenFor(model => model.AllowedIngredients)
+    @Html.HiddenFor(model => model.PizzaID)
     <div class="col-6">
         <div class="row g-2">
             <div class="col-12">

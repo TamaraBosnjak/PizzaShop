@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using PizzaShop.Models;
+using PizzaShop.TagHelpers;
 using PizzaShop.ViewModels;
+using System.Linq;
 using System.Reflection.PortableExecutable;
 
 namespace PizzaShop.Controllers
@@ -82,11 +84,14 @@ namespace PizzaShop.Controllers
 
             return View(vm);
         }
-        
+
+        [TypeFilter(typeof(CustomExceptionFilter))]
         public IActionResult SavePizza(UserCustomPizzaViewModel vm) 
         {
             var userCookie = Request.Cookies["User"];
             var user = JsonConvert.DeserializeObject<User>(userCookie!);
+
+            throw new InvalidOperationException("Neka greska");
 
             var allowedIngredients = vm.AllowedIngredients.Split(',').Select(s => s.Trim()).Select(s => s.ToLower()).ToList();
             var ingredients = vm.Ingredients.Split(',').Select(s => s.Trim()).Select(s => s.ToLower()).ToList();
@@ -99,7 +104,7 @@ namespace PizzaShop.Controllers
                 return View("YourCustomPizza", vm);
             }
 
-            var pizza = new Pizza() 
+            var pizza = new Pizza()
             {
                 Name = vm.PizzaName,
                 Category = _categoryRepository.GetAllCategories().FirstOrDefault(c => c.Name == "Pice korisnika")!,
@@ -115,35 +120,78 @@ namespace PizzaShop.Controllers
 
             _pizzaRepository.SavePizza(pizza);
 
-            _notyf.Success("Uspesno ste sacuvali picu!",3);
+            _notyf.Success("Uspesno ste sacuvali picu!", 3);
 
             return RedirectToAction("Profile", "User");
+        
         }
 
         public IActionResult MyPizzas() 
-            {
+        {
             var userCookie = Request.Cookies["User"];
             var user = JsonConvert.DeserializeObject<User>(userCookie!);
 
-            IEnumerable<Pizza> pizzas;
-            string category = "Pice korisnika";
-        
-            pizzas = _pizzaRepository.Pizzas.Where(p => p.UserID == user!.UserID).OrderBy(p => p.ID);
-            var vm = new PizzaListViewModel(pizzas, category);
-               
+            var vm = new PizzaManagerViewModel();
+            vm.Pizzas = _pizzaRepository.GetUserPizzas(user.UserID);
+
             return View(vm);
         }
 
-        public IActionResult EditPizzas (UserCustomPizzaViewModel vm) 
+        public IActionResult EditPizza(int pizzaId) 
         {
-            return View();
+            var pizza = _pizzaRepository.Pizzas.FirstOrDefault(p => p.ID == pizzaId);
+            var vm = new UserCustomPizzaViewModel();
+            vm.AllowedIngredients = "Sunka, Pecenica, Pelat, Sir, Masline, Pecurke, Jaje, Kukuruz, Paprika, Brokoli";
+
+            return View(vm);
         }
+
+        [HttpPost]
+        public IActionResult EditPizza(UserCustomPizzaViewModel vm) 
+        {
+            var userCookie = Request.Cookies["User"];
+            var user = JsonConvert.DeserializeObject<User>(userCookie!);
+
+            var pizzaName = vm.PizzaName;
+
+            var allowedIngredients = vm.AllowedIngredients.Split(',').Select(s => s.Trim()).Select(s => s.ToLower()).ToList();
+            var ingredients = vm.Ingredients.Split(',').Select(s => s.Trim()).Select(s => s.ToLower()).ToList();
+
+            var disallowedWords = ingredients.Where(word => !allowedIngredients.Contains(word)).ToList();
+
+            if (disallowedWords.Any())
+            {
+                ModelState.AddModelError("", "Uneli ste nedozvoljen sastojak: " + string.Join(", ", disallowedWords));
+                return View("YourCustomPizza", vm);
+            }
+
+            var pizza = new Pizza()
+            {
+                ID = vm.PizzaID,
+                Name = vm.PizzaName,
+                Category = _categoryRepository.GetAllCategories().FirstOrDefault(c => c.Name == "Pice korisnika")!,
+                LongDescription = vm.Ingredients,
+                Price = 1500,
+                UserID = user!.UserID,
+                ShortDescription = vm.Ingredients,
+                ImageThumbnailUrl = string.Empty,
+                ImageUrl = string.Empty,
+                IsPizzaOfTheWeek = false,
+                InStock = true
+            };
+
+            _pizzaRepository.EditPizza(pizza);
+
+            _notyf.Success("Uspesno ste izmenili picu!", 3);
+
+            return RedirectToAction("Profile", "User");
+
+        }
+
         public IActionResult DeletePizza(int pizzaId) 
         {
-
             var pizza = _pizzaRepository.GetPizzaByID(pizzaId);
             _pizzaRepository.DeletePizza(pizza.ID);
-            //_pizzaRepository.DeletePizza(pizza);
 
             _notyf.Success("Uspesno ste obrisali picu!", 3);
 

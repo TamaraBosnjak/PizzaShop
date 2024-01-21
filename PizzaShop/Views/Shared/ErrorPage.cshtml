@@ -1,0 +1,9 @@
+﻿<div>
+    <h2>Doslo je do greske!</h2>
+    <p>Kontaktirajte podrsku.</p>
+    
+    @{
+        var p = (Exception)ViewData["Exception obj"];
+    }
+    <p>Ovo je nas @p.Message</p>
+</div>

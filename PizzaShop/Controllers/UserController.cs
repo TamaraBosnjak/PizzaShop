@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PizzaShop.Helpers;
 using PizzaShop.Models;
+using PizzaShop.TagHelpers;
 using PizzaShop.ViewModels;
 using User = PizzaShop.Models.User;
 
@@ -96,6 +97,7 @@ namespace PizzaShop.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
         public IActionResult Profile() 
         {
             User user = new User();

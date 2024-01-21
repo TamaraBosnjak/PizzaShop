@@ -12,5 +12,7 @@ namespace PizzaShop.ViewModels
         public string Ingredients { get; set; }
 
         public string AllowedIngredients { get; set; }
+
+        public int PizzaID { get; set; }
     }
 }

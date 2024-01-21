@@ -29,10 +29,21 @@ namespace PizzaShop.Models
             _appDBContext.Pizzas.Add(pizza);
             _appDBContext.SaveChanges();
         }
+
         public void DeletePizza(int id)
         {
             var cartItem = _appDBContext.Pizzas.FirstOrDefault(p => p.ID == id)!;
             _appDBContext.Pizzas.Remove(cartItem);
+            _appDBContext.SaveChanges();
+        }
+
+        public List<Pizza> GetUserPizzas(int userID)
+        {
+            return _appDBContext.Pizzas.Where(p => p.UserID == userID).ToList();
+        }
+        public void EditPizza(Pizza pizza)
+        {
+            _appDBContext.Pizzas.Update(pizza);
             _appDBContext.SaveChanges();
         }
 

@@ -1,5 +1,5 @@
 ﻿@using PizzaShop.ViewModels;
-@model PizzaListViewModel
+@model PizzaManagerViewModel
 
 <div class="col">
     <h2 class="mt-5">Vaše kreirane pice</h2>
@@ -11,7 +11,6 @@
                 <th class="item">Sastojci</th>
                 <th class="item">Cena</th>
                 <th class="item"></th>
-                <th class="item"></th>
 
             </tr>
         </thead>
@@ -22,8 +21,10 @@
                     <td>@line.Name</td>
                     <td>@line.LongDescription</td>
                     <td>@line.Price</td>
-                    <td><a class="btn btn-primary" asp-action="AddToShoppingCart" asp-controller="ShoppingCart" asp-route-pizzaId="@line.ID">Izmeni</a></td>
-                    <td><a class="btn btn-primary" asp-action="DeletePizza" asp-controller="Pizza" asp-route-pizzaId="@line.ID">Obrisi</a></td>
+                    <td>
+                        <a class="btn btn-primary" asp-action="EditPizza" asp-controller="Pizza" asp-route-pizzaId="@line.ID">Izmeni</a>
+                        <a class="btn btn-danger" asp-action="DeletePizza" asp-controller="Pizza" asp-route-pizzaId="@line.ID">Obrisi</a>
+                    </td>
                 </tr>
             }
         </tbody>
