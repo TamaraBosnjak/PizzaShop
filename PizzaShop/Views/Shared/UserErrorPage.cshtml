@@ -1,0 +1,9 @@
+﻿<div>
+    <h2>Niste uneli tacne podatke!</h2>
+    <p>Kontaktirajte podrsku.</p>
+
+    @{
+        var p = (Exception)ViewData["Exception user"];
+    }
+    <p style="color:red;">Vasa greska je: @p.Message</p>
+</div>

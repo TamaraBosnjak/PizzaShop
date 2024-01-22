@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace PizzaShop.TagHelpers
 {
-    public class UserExceptionFilter
+    public class UserExceptionFilter : IExceptionFilter
     {
         private IModelMetadataProvider _metadataProvider;
 
@@ -15,10 +15,10 @@ namespace PizzaShop.TagHelpers
 
         public void OnException(ExceptionContext context)
         {
-            var result = new ViewResult { ViewName = "ErrorPage" };
+            var result = new ViewResult { ViewName = "UserErrorPage" };
             result.ViewData = new Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary(_metadataProvider, context.ModelState);
 
-            result.ViewData.Add("Exception obj", context.Exception);
+            result.ViewData.Add("Exception user", context.Exception);
 
             context.ExceptionHandled = true;
             context.Result = result;

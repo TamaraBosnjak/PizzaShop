@@ -55,6 +55,8 @@ namespace PizzaShop.Controllers
             var vm = new LoginViewModel();
             return View(vm);
         }
+
+        [TypeFilter(typeof(UserExceptionFilter))]
         public IActionResult SignIn(LoginViewModel loginUser)
         {
             if (!ModelState.IsValid)
@@ -63,6 +65,8 @@ namespace PizzaShop.Controllers
             }
 
             var user = _userRepository.GetUserByUsername(loginUser.UserName);
+            throw new Exception("Nepostojeci username");
+
 
             if (user != null)
             {
