@@ -22,8 +22,8 @@
                     <td>@line.ID</td>
                     <td>@line.OrderPlaced</td>
                     <td>@string.Join(", ", line.OrderDetails!.Where(od => od.OrderID == line.ID).Select(od => od.Pizza.Name))</td>
-                    <td>@line.OrderDetails!.Where(od => od.OrderID == line.ID).Select(od => od.Amount).Count()</td>
                     <td>@string.Join(", ", line.OrderDetails!.Where(od => od.OrderID == line.ID).Select(od => od.Price))</td>
+                    <td>@line.OrderDetails!.Where(od => od.OrderID == line.ID).Select(od => od.Amount).Count()</td>
                     <td>@line.OrderTotal</td>
                 </tr>
             }

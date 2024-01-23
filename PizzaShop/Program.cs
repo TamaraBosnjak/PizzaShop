@@ -1,6 +1,7 @@
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
 using Microsoft.EntityFrameworkCore;
+using PizzaShop.Middleware;
 using PizzaShop.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,7 +36,7 @@ app.UseStaticFiles();
 app.UseSession();
 app.UseRouting();
 app.UseNotyf();
-
+app.UseMiddleware<Middleware>();
 app.UseAuthorization();
 
 app.MapControllerRoute(

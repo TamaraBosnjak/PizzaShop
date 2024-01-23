@@ -46,6 +46,5 @@ namespace PizzaShop.Models
             _appDBContext.Pizzas.Update(pizza);
             _appDBContext.SaveChanges();
         }
-
     }
 }

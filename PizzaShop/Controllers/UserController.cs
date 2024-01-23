@@ -56,7 +56,7 @@ namespace PizzaShop.Controllers
             return View(vm);
         }
 
-        [TypeFilter(typeof(UserExceptionFilter))]
+        //[TypeFilter(typeof(UserExceptionFilter))]
         public IActionResult SignIn(LoginViewModel loginUser)
         {
             if (!ModelState.IsValid)
@@ -65,7 +65,7 @@ namespace PizzaShop.Controllers
             }
 
             var user = _userRepository.GetUserByUsername(loginUser.UserName);
-            throw new Exception("Nepostojeci username");
+            //throw new Exception($"Nepostojeci username {user.UserName}");
 
 
             if (user != null)
@@ -92,7 +92,7 @@ namespace PizzaShop.Controllers
         }
         public IActionResult Logout()
         {
-            if (Request.Cookies["User"] != null)
+            if (HttpContext!.User!.Identity!.IsAuthenticated)
             {
                 Response.Cookies.Delete("User");
             }
@@ -105,10 +105,10 @@ namespace PizzaShop.Controllers
         public IActionResult Profile() 
         {
             User user = new User();
-            var userCookie = HttpContext!.Request.Cookies["User"];
 
-            if (userCookie != null) 
+            if (HttpContext.User.Identity.IsAuthenticated) 
             {
+                var userCookie = HttpContext!.Request.Cookies["User"];
                 user = JsonConvert.DeserializeObject<User>(userCookie)!;
             }
 

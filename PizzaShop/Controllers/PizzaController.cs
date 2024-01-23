@@ -85,13 +85,13 @@ namespace PizzaShop.Controllers
             return View(vm);
         }
 
-        [TypeFilter(typeof(CustomExceptionFilter))]
+        //[TypeFilter(typeof(CustomExceptionFilter))]
         public IActionResult SavePizza(UserCustomPizzaViewModel vm) 
         {
             var userCookie = Request.Cookies["User"];
             var user = JsonConvert.DeserializeObject<User>(userCookie!);
 
-            throw new InvalidOperationException("Neka greska");
+            //throw new InvalidOperationException("Neka greska");
 
             var allowedIngredients = vm.AllowedIngredients.Split(',').Select(s => s.Trim()).Select(s => s.ToLower()).ToList();
             var ingredients = vm.Ingredients.Split(',').Select(s => s.Trim()).Select(s => s.ToLower()).ToList();
@@ -140,8 +140,13 @@ namespace PizzaShop.Controllers
         public IActionResult EditPizza(int pizzaId) 
         {
             var pizza = _pizzaRepository.Pizzas.FirstOrDefault(p => p.ID == pizzaId);
-            var vm = new UserCustomPizzaViewModel();
-            vm.AllowedIngredients = "Sunka, Pecenica, Pelat, Sir, Masline, Pecurke, Jaje, Kukuruz, Paprika, Brokoli";
+            var vm = new UserCustomPizzaViewModel()
+            {
+                AllowedIngredients = "Sunka, Pecenica, Pelat, Sir, Masline, Pecurke, Jaje, Kukuruz, Paprika, Brokoli",
+                PizzaName = pizza.Name,
+                Ingredients = pizza.LongDescription,
+                PizzaID = pizzaId
+            };
 
             return View(vm);
         }
@@ -151,8 +156,6 @@ namespace PizzaShop.Controllers
         {
             var userCookie = Request.Cookies["User"];
             var user = JsonConvert.DeserializeObject<User>(userCookie!);
-
-            var pizzaName = vm.PizzaName;
 
             var allowedIngredients = vm.AllowedIngredients.Split(',').Select(s => s.Trim()).Select(s => s.ToLower()).ToList();
             var ingredients = vm.Ingredients.Split(',').Select(s => s.Trim()).Select(s => s.ToLower()).ToList();
@@ -165,39 +168,26 @@ namespace PizzaShop.Controllers
                 return View("YourCustomPizza", vm);
             }
 
-            var pizza = new Pizza()
-            {
-                ID = vm.PizzaID,
-                Name = vm.PizzaName,
-                Category = _categoryRepository.GetAllCategories().FirstOrDefault(c => c.Name == "Pice korisnika")!,
-                LongDescription = vm.Ingredients,
-                Price = 1500,
-                UserID = user!.UserID,
-                ShortDescription = vm.Ingredients,
-                ImageThumbnailUrl = string.Empty,
-                ImageUrl = string.Empty,
-                IsPizzaOfTheWeek = false,
-                InStock = true
-            };
+            var pizza = _pizzaRepository.GetPizzaByID(vm.PizzaID);
+            pizza.LongDescription = vm.Ingredients;
+            pizza.Name = vm.PizzaName;
 
             _pizzaRepository.EditPizza(pizza);
 
             _notyf.Success("Uspesno ste izmenili picu!", 3);
 
-            return RedirectToAction("Profile", "User");
+            return RedirectToAction("MyPizzas", "Pizza");
 
         }
 
-        public IActionResult DeletePizza(int pizzaId) 
+        public IActionResult DeletePizza(int pizzaID) 
         {
-            var pizza = _pizzaRepository.GetPizzaByID(pizzaId);
-            _pizzaRepository.DeletePizza(pizza.ID);
+            _pizzaRepository.DeletePizza(pizzaID);
 
             _notyf.Success("Uspesno ste obrisali picu!", 3);
 
-            return RedirectToAction("Profile", "User");
+            return RedirectToAction("MyPizzas", "Pizza");
         }
-
     }
 
 }
